@@ -232,7 +232,7 @@
     <div class="card">
       <p style="font-size:14px; color:var(--gray-700); margin-bottom:16px; line-height:1.8;">
         A고객이 편도 반납한 차량을, 역방향 B고객에게 <b>편도수수료 0원</b>으로 제공.<br>
-        B고객은 <b>출발지역 내 아무 쏘카존에 반납</b>하면 되고, 쏘카는 <b>단거리 재배치(~4천원)</b>만 부담.
+        B고객은 <b>출발지역 내 아무 쏘카존에 반납</b>하면 되고, 쏘카는 <b>지역 내 재배치(중위 ~10,000원)</b>만 부담.
       </p>
       <div class="flow-step" style="background: var(--gray-100);">
         <div class="flow-num">1</div>
@@ -242,7 +242,7 @@
       <div class="flow-step" style="background: var(--primary-light);">
         <div class="flow-num">2</div>
         <div>청주 허브존에 <b>24h 대기</b> + 역방향 고객에게 <b>"청주 출발 편도 0원" push 알림</b></div>
-        <span class="flow-cost neutral">대기 비용: ~13K/일</span>
+        <span class="flow-cost neutral">대기 비용: ~7.9K/일</span>
       </div>
       <div class="flow-step" style="background: var(--green-light);">
         <div class="flow-num" style="background: var(--green);">3</div>
@@ -251,8 +251,8 @@
       </div>
       <div class="flow-step" style="background: var(--primary-light);">
         <div class="flow-num">4</div>
-        <div>쏘카: 대전 Y존 &rarr; 대전 X존 <b>단거리 재배치</b> (같은 도시 내, 최소 비용)</div>
-        <span class="flow-cost cost">비용: ~4천원</span>
+        <div>쏘카: 대전 Y존 &rarr; 대전 X존 <b>지역 내 재배치</b> (같은 시도 내)</div>
+        <span class="flow-cost cost">비용: ~10,000원</span>
       </div>
       <div class="flow-step" style="background: var(--gray-100);">
         <div class="flow-num">5</div>
@@ -264,8 +264,9 @@
     <div class="callout" style="background: var(--green-light); border: 2px solid var(--green);">
       <h4 style="color: #065f46;">핵심: B고객은 정확한 존이 아닌 "광역 내 자유 반납"</h4>
       <p style="color: #064e3b;">
-        B고객이 A고객의 출발존(X존)으로 정확히 돌아갈 필요 없음. <b>같은 도시 내 어떤 쏘카존이든 OK</b><br>
-        쏘카는 Y존→X존 단거리 재배치만 수행 (평균 ~4천원) &rarr; 매칭 허들 대폭 완화, 고객 편의성 극대화
+        B고객이 A고객의 출발존(X존)으로 정확히 돌아갈 필요 없음. <b>같은 시도 내 어떤 쏘카존이든 OK</b><br>
+        쏘카는 Y존→X존 지역 내 재배치만 수행 (중위 ~10,000원) &rarr; 매칭 허들 대폭 완화, 고객 편의성 극대화<br>
+        <span style="font-size:12px;">* 지역 내 재배치 비용 = 같은 시도 내 편도 중위 탁송비 기준 (대전 9.8K / 충북 11.2K / 전국 평균 ~11K)</span>
       </p>
     </div>
 
@@ -294,7 +295,7 @@
           <div class="flow-step" style="background: #fef2f2;">
             <div class="flow-num" style="background: var(--red);">2</div>
             <div>차량 유휴 대기 <b>평균 24.8시간</b></div>
-            <span class="flow-cost cost">-12,854원</span>
+            <span class="flow-cost cost">-7,854원</span>
           </div>
           <div class="flow-step" style="background: #fef2f2;">
             <div class="flow-num" style="background: var(--red);">3</div>
@@ -306,7 +307,7 @@
             <div>차량 재가동 (X존 복귀)</div>
           </div>
           <div class="journey-total" style="background: #fef2f2; color: #991b1b;">
-            총 비용: -28,941원 / 추가 매출: 0원
+            총 비용: -23,941원 / 추가 매출: 0원
           </div>
         </div>
         <div class="journey-col">
@@ -328,17 +329,17 @@
           </div>
           <div class="flow-step" style="background: var(--primary-light);">
             <div class="flow-num">4</div>
-            <div>단거리 재배치 Y존 &rarr; X존</div>
-            <span class="flow-cost cost">-4,000원</span>
+            <div>지역 내 재배치 Y존 &rarr; X존</div>
+            <span class="flow-cost cost">-10,000원</span>
           </div>
           <div class="journey-total" style="background: var(--green-light); color: #065f46;">
-            총 비용: -4,000원 / 추가 매출: +66,775원
+            총 비용: -10,000원 / 추가 매출: +66,775원
           </div>
         </div>
       </div>
       <div style="text-align:center; margin-top:16px; padding:16px; background: var(--primary-light); border-radius:10px;">
         <span style="font-size:15px; font-weight:700; color: var(--primary);">
-          건당 GP 개선: 탁송비 절감 12,087원 + 추가 GP 23,011원 = <b style="font-size:18px;">+35,098원</b>
+          건당 GP 개선: 탁송비 절감 6,087원 + 추가 GP 23,011원 = <b style="font-size:18px;">+29,098원</b>
         </span>
       </div>
     </div>
@@ -355,14 +356,14 @@
         <div class="opp-sub">핸들러 인건비 + 교통비<br>건당 평균</div>
       </div>
       <div class="opp-card" style="border: 2px solid #fde68a;">
-        <div class="opp-label">주차비 + 기회비용 (숨은 비용)</div>
-        <div class="opp-value" style="color: var(--accent);">12,854원</div>
-        <div class="opp-sub">주차비 ~5,000원/일 + 미판매 GP 7,854원/일<br>유휴 평균 24.8시간 기준</div>
+        <div class="opp-label">재판매 기회비용 (숨은 비용)</div>
+        <div class="opp-value" style="color: var(--accent);">7,854원</div>
+        <div class="opp-sub">차량 1대 일평균 GP 7,854원<br>유휴 평균 24.8시간(~1일) 기준</div>
       </div>
       <div class="opp-card" style="border: 2px solid var(--red);">
         <div class="opp-label">건당 실제 총비용</div>
-        <div class="opp-value" style="color: var(--red);">28,941원</div>
-        <div class="opp-sub">탁송비만 보면 16K지만<br><b>실제로는 29K가 사라짐</b></div>
+        <div class="opp-value" style="color: var(--red);">23,941원</div>
+        <div class="opp-sub">탁송비만 보면 16K지만<br><b>실제로는 24K가 사라짐</b></div>
       </div>
     </div>
 
@@ -389,10 +390,10 @@
       <div class="callout" style="background:var(--primary-light); border:2px solid var(--primary); margin-top:16px;">
         <h4 style="color:var(--primary);">24시간 매칭 윈도우가 합리적인 이유</h4>
         <p style="color:#1e3a5f; font-size:13px;">
-          <b>제시간에 돌아갔을 때 재판매 기회비용</b>: 차량 1대 일평균 GP 7,854원, 핵심매출 31,688원<br>
-          <b>24시간 대기 비용</b>: 주차비 ~5,000원 + 기회비용 7,854원 = <b>12,854원</b><br>
-          <b>매칭 성공 시 회수</b>: B고객 매출 66,775원 + 탁송비 절감 16,087원 = <b>82,862원</b><br>
-          &rarr; 12,854원을 투자해서 82,862원을 회수하는 구조. <b>투자 대비 6.4배 리턴</b><br>
+          <b>제시간에 돌아갔을 때 재판매 기회비용</b>: 차량 1대 일평균 GP 7,854원 (핵심매출 31,688원)<br>
+          <b>24시간 대기 비용</b>: 기회비용 7,854원 (원존 복귀 시 하루 벌 수 있었던 GP)<br>
+          <b>매칭 성공 시 회수</b>: B고객 매출 66,775원 + 탁송비 절감 6,087원 = <b>72,862원</b><br>
+          &rarr; 7,854원을 투자해서 72,862원을 회수하는 구조. <b>투자 대비 9.3배 리턴</b><br>
           &rarr; 매칭 실패해도 기존 탁송 진행이면 되므로 <b>추가 손실은 24h 대기 비용뿐</b>
         </p>
       </div>
