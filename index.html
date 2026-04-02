@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>충청 지역 편도 매칭 파일럿 제안</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<title>얼리버드 편도 매칭 서비스</title>
 <style>
   :root {
     --primary: #1a56db;
@@ -22,1052 +21,309 @@
     --gray-700: #374151;
     --gray-900: #111827;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--gray-50);
     color: var(--gray-900);
     line-height: 1.6;
   }
-
-  .container {
+  .nav {
+    background: white;
+    border-bottom: 2px solid var(--gray-200);
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .nav-inner {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 32px 24px;
-  }
-
-  /* Header */
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  .header .badge {
-    display: inline-block;
-    background: var(--primary);
-    color: white;
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-  .header h1 {
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 6px;
-  }
-  .header .subtitle {
-    color: var(--gray-500);
-    font-size: 15px;
-  }
-
-  /* Section */
-  .section {
-    margin-bottom: 40px;
-  }
-  .section-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    padding-left: 12px;
-    border-left: 4px solid var(--primary);
-  }
-
-  /* KPI Cards */
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-  .kpi-card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    text-align: center;
-  }
-  .kpi-card .label {
-    font-size: 13px;
-    color: var(--gray-500);
-    margin-bottom: 4px;
-  }
-  .kpi-card .value {
-    font-size: 28px;
-    font-weight: 800;
-  }
-  .kpi-card .unit {
-    font-size: 14px;
-    color: var(--gray-500);
-    font-weight: 400;
-  }
-  .kpi-card .sub {
-    font-size: 12px;
-    color: var(--gray-500);
-    margin-top: 4px;
-  }
-  .kpi-card.blue .value { color: var(--primary); }
-  .kpi-card.amber .value { color: var(--accent); }
-  .kpi-card.green .value { color: var(--green); }
-  .kpi-card.red .value { color: var(--red); }
-
-  /* Cards */
-  .card {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
-  }
-  .card h3 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--gray-700);
-  }
-
-  /* Grid layouts */
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  .grid-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-  }
-
-  /* Table */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  th {
-    background: var(--gray-100);
-    padding: 10px 12px;
-    text-align: left;
-    font-weight: 600;
-    color: var(--gray-700);
-    border-bottom: 2px solid var(--gray-200);
-  }
-  td {
-    padding: 9px 12px;
-    border-bottom: 1px solid var(--gray-100);
-  }
-  tr:hover td { background: var(--gray-50); }
-  .num { text-align: right; font-variant-numeric: tabular-nums; }
-  .highlight-row td { background: var(--primary-light); font-weight: 600; }
-
-  /* Hub cards */
-  .hub-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-  }
-  .hub-card {
-    background: white;
-    border-radius: 10px;
-    padding: 16px;
-    text-align: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    border: 2px solid transparent;
-    transition: border-color 0.2s;
-  }
-  .hub-card:hover { border-color: var(--primary); }
-  .hub-card .hub-icon { font-size: 24px; margin-bottom: 6px; }
-  .hub-card .hub-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-  .hub-card .hub-cnt { font-size: 22px; font-weight: 800; color: var(--primary); }
-  .hub-card .hub-sub { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
-
-  /* Phase comparison */
-  .phase-grid {
-    display: grid;
-    grid-template-columns: 1fr 40px 1fr;
-    gap: 0;
+    display: flex;
     align-items: center;
   }
-  .phase-box {
-    border-radius: 12px;
-    padding: 24px;
-  }
-  .phase-box.p1 {
-    background: var(--primary-light);
-    border: 2px solid var(--primary);
-  }
-  .phase-box.p2 {
-    background: var(--green-light);
-    border: 2px solid var(--green);
-  }
-  .phase-box .phase-label {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    padding: 3px 10px;
-    border-radius: 6px;
-    display: inline-block;
-  }
-  .phase-box.p1 .phase-label { background: var(--primary); color: white; }
-  .phase-box.p2 .phase-label { background: var(--green); color: white; }
-  .phase-box .metric-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    font-size: 14px;
-  }
-  .phase-box .metric-row:last-child { border-bottom: none; }
-  .phase-box .metric-value { font-weight: 700; }
-  .phase-arrow {
-    text-align: center;
-    font-size: 24px;
-    color: var(--gray-300);
-  }
-
-  /* Zero risk callout */
-  .callout {
-    background: var(--accent-light);
-    border: 2px solid var(--accent);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-top: 20px;
-  }
-  .callout h4 {
+  .nav-brand {
+    font-weight: 800;
     font-size: 15px;
-    font-weight: 700;
-    color: #92400e;
-    margin-bottom: 8px;
+    color: var(--primary);
+    padding: 14px 16px 14px 0;
+    border-right: 1px solid var(--gray-200);
+    margin-right: 8px;
+    white-space: nowrap;
   }
-  .callout p {
-    font-size: 13px;
-    color: #78350f;
-    line-height: 1.7;
-  }
-
-  /* Chart container */
-  .chart-container {
-    position: relative;
-    height: 320px;
-  }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    padding: 24px;
+  .nav a {
+    display: inline-block;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
     color: var(--gray-500);
-    font-size: 12px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav a:hover { color: var(--gray-900); background: var(--gray-50); }
+  .nav a.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+  .header { text-align: center; margin-bottom: 48px; }
+  .header h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+  .header .subtitle { color: var(--gray-500); font-size: 16px; }
+
+  .section { margin-bottom: 48px; }
+  .section-title {
+    font-size: 20px; font-weight: 700; margin-bottom: 20px;
+    padding-left: 14px; border-left: 4px solid var(--primary);
   }
 
-  /* Responsive */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+  .kpi-card {
+    background: white; border-radius: 12px; padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center;
+  }
+  .kpi-card .label { font-size: 13px; color: var(--gray-500); margin-bottom: 4px; }
+  .kpi-card .value { font-size: 32px; font-weight: 800; }
+  .kpi-card .unit { font-size: 14px; color: var(--gray-500); font-weight: 400; }
+  .kpi-card .sub { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+  .kpi-card.blue .value { color: var(--primary); }
+  .kpi-card.green .value { color: var(--green); }
+  .kpi-card.amber .value { color: var(--accent); }
+
+  .card {
+    background: white; border-radius: 12px; padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 20px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .callout { border-radius: 12px; padding: 20px 24px; margin-top: 20px; }
+  .callout h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .callout p { font-size: 13px; line-height: 1.8; }
+
+  .problem-card {
+    border-radius: 12px; padding: 28px; min-height: 200px;
+  }
+  .problem-card h3 { margin-bottom: 16px; font-size: 17px; }
+  .problem-card ul { list-style: none; padding: 0; }
+  .problem-card li {
+    padding: 10px 0 10px 24px; border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 14px; position: relative;
+  }
+  .problem-card li:last-child { border-bottom: none; }
+  .problem-card li::before {
+    content: ''; position: absolute; left: 0; top: 16px;
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .red-card li::before { background: #ef4444; }
+  .amber-card li::before { background: #f59e0b; }
+
+  .flow-step {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 16px 20px; border-radius: 10px; margin-bottom: 10px; font-size: 14px;
+  }
+  .flow-num {
+    background: var(--primary); color: white; min-width: 28px; height: 28px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; flex-shrink: 0;
+  }
+
+  .phase-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .phase-card {
+    border-radius: 12px; padding: 24px; text-align: center;
+    transition: transform 0.2s;
+  }
+  .phase-card:hover { transform: translateY(-2px); }
+  .phase-card .phase-num { font-size: 13px; font-weight: 700; margin-bottom: 8px; padding: 3px 12px; border-radius: 6px; display: inline-block; color: white; }
+  .phase-card .phase-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+  .phase-card .phase-value { font-size: 28px; font-weight: 800; }
+  .phase-card .phase-sub { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+
+  .nav-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  .nav-card {
+    display: block; text-decoration: none; color: inherit;
+    background: white; border-radius: 12px; padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border: 2px solid var(--gray-200); transition: all 0.2s;
+  }
+  .nav-card:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .nav-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .nav-card p { font-size: 14px; color: var(--gray-500); }
+  .nav-card .arrow { float: right; font-size: 24px; color: var(--primary); }
+
+  .footer { text-align: center; padding: 24px; color: var(--gray-500); font-size: 12px; }
+
   @media (max-width: 900px) {
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    .hub-grid { grid-template-columns: repeat(3, 1fr); }
-    .phase-grid { grid-template-columns: 1fr; gap: 12px; }
-    .phase-arrow { transform: rotate(90deg); }
-  }
-
-  @media print {
-    body { background: white; }
-    .container { padding: 16px; }
-    .card, .kpi-card, .hub-card { box-shadow: none; border: 1px solid var(--gray-200); }
+    .grid-2, .phase-row, .nav-cards { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
+<div class="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">얼리버드 편도 매칭</span>
+    <a href="index.html" class="active">지역 편도 개요</a>
+    <a href="chungcheong-oneway-dashboard.html">충청 파일럿</a>
+    <a href="nationwide-oneway-dashboard.html">전국 확장</a>
+  </div>
+</div>
+
 <div class="container">
 
-  <!-- Header -->
   <div class="header">
-    <div class="badge">충청사업팀</div>
-    <h1>편도 역방향 매칭으로 연 GP +2,966만원 확보 방안</h1>
-    <p class="subtitle">승인 요청 | 충청 지역 파일럿 → 수도권 확장 시 +1.1억</p>
+    <h1>얼리버드 편도 매칭 서비스</h1>
+    <p class="subtitle">편도 반납 차량의 역방향 매칭으로 탁송비 절감 + 추가 매출 확보</p>
   </div>
 
-  <!-- Executive Summary - 3줄 승인 구조 -->
+  <!-- 문제점 -->
   <div class="section">
-    <div class="card" style="border: 2px solid var(--primary); background: var(--primary-light);">
-      <table style="font-size: 15px; border-collapse: collapse;">
-        <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-          <td style="padding: 12px 16px; font-weight: 700; white-space: nowrap; color: var(--primary); width: 120px;">추진 목적</td>
-          <td style="padding: 12px 16px;">충청 편도 탁송비 연 3.8억 중 <b>1,628만원 절감</b> + 신규 역방향 수요 확보로 <b>추가 GP 1,338만원</b>, 총 <b>연 GP +2,966만원 증대</b></td>
-        </tr>
-        <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-          <td style="padding: 12px 16px; font-weight: 700; white-space: nowrap; color: var(--primary);">실행 방안</td>
-          <td style="padding: 12px 16px;">편도 반납 차량을 역방향 고객에게 <b>편도수수료 0원</b>으로 D-7 사전 매칭 (대여료+주행료만 수취). 충청 내부 6개 구간, 연 709건 매칭 (50% 보수적 추정)</td>
-        </tr>
-        <tr>
-          <td style="padding: 12px 16px; font-weight: 700; white-space: nowrap; color: var(--primary);">승인 요청</td>
-          <td style="padding: 12px 16px;">충청사업팀 관할 내 <b>파일럿 실행 승인</b> (매칭 실패 시 기존 유료편도 진행, 추가 손실 0원 = Zero-Risk)</td>
-        </tr>
-      </table>
+    <h2 class="section-title">왜 해야 하는가</h2>
+    <div class="grid-2">
+      <div class="problem-card red-card" style="background: #fef2f2; border: 2px solid #fecaca;">
+        <h3 style="color: #991b1b;">고객 관점의 문제</h3>
+        <ul>
+          <li style="color: #7f1d1d;"><b>편도 수수료 과도</b> - 편도 이용 시 별도 수수료 부과로 비용 부담</li>
+          <li style="color: #7f1d1d;"><b>편도 가용 차량 제한</b> - 원하는 방향/시간에 편도 차량 부족</li>
+          <li style="color: #7f1d1d;"><b>수요 이탈</b> - 비용 부담으로 편도 이용 자체를 포기하는 잠재 수요 존재</li>
+        </ul>
+      </div>
+      <div class="problem-card amber-card" style="background: #fef3c7; border: 2px solid #fde68a;">
+        <h3 style="color: #92400e;">회사(쏘카) 관점의 문제</h3>
+        <ul>
+          <li style="color: #78350f;"><b>탁송비 연 56억원</b> - 편도 반납 후 차량 원위치 비용 (전국, 제주 제외)</li>
+          <li style="color: #78350f;"><b>탁송 중 매출 0원</b> - 핸들러 이동 중 차량 비가동, 수익 제로</li>
+          <li style="color: #78350f;"><b>GP 직접 감소</b> - 탁송비는 순비용, 매출 없이 비용만 발생</li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <!-- 추진 목표 KPI -->
+  <!-- 해결 방안 -->
   <div class="section">
-    <h2 class="section-title">추진 목표 (보수적 50% 매칭률 기준)</h2>
+    <h2 class="section-title">해결 방안: 롤링 재고 + Push 알림</h2>
+    <div class="card">
+      <div class="flow-step" style="background: var(--gray-100);">
+        <div class="flow-num">1</div>
+        <div><b>A고객</b>이 서울 &rarr; 인천 편도 반납 (기존 정상 요금 수취)</div>
+      </div>
+      <div class="flow-step" style="background: #fef2f2;">
+        <div class="flow-num" style="background: var(--red);">AS</div>
+        <div><b>기존:</b> 쏘카가 인천 &rarr; 서울 핸들러 탁송 (비용 발생, 매출 0원)</div>
+      </div>
+      <div class="flow-step" style="background: var(--primary-light);">
+        <div class="flow-num">2</div>
+        <div>수정 모델: 인천 허브존에 <b>24~48시간 대기</b> (일평균 소량, 존 부담 미미)</div>
+      </div>
+      <div class="flow-step" style="background: var(--primary-light);">
+        <div class="flow-num">3</div>
+        <div>역방향 고객에게 <b>"인천 출발 편도수수료 0원" push 알림</b> 발송</div>
+      </div>
+      <div class="flow-step" style="background: var(--green-light);">
+        <div class="flow-num" style="background: var(--green);">4</div>
+        <div><b>B고객</b>이 인천 &rarr; 서울 이용 (대여료+주행료만 지불, 편도수수료 0원)</div>
+      </div>
+      <div class="flow-step" style="background: var(--gray-100);">
+        <div class="flow-num">5</div>
+        <div>매칭 실패 시: 기존 유료편도 프로세스 진행 &rarr; <b>추가 손실 0원 (Zero-Risk)</b></div>
+      </div>
+    </div>
+
+    <div class="callout" style="background: #fef2f2; border: 2px solid var(--red);">
+      <h4 style="color: #991b1b;">왜 D-7 사전 매칭이 아닌가?</h4>
+      <p style="color: #7f1d1d;">
+        전국 편도 예약의 <b>54%가 출발 3시간 이내</b>, <b>81%가 당일 예약</b><br>
+        D-7 시점에는 IN 차량 도착 여부 자체를 알 수 없음. 7일+ 사전 예약은 <b>5.1%에 불과</b><br>
+        &rarr; 사전 매칭 대신 <b>반납 후 대기 &rarr; 실시간 push 알림</b> 방식이 현실적
+      </p>
+    </div>
+  </div>
+
+  <!-- 추진 목표 -->
+  <div class="section">
+    <h2 class="section-title">추진 목표 (전국, 50% 보수적 매칭률 기준)</h2>
     <div class="kpi-grid">
       <div class="kpi-card green">
         <div class="label">탁송비 절감</div>
-        <div class="value">1,628<span class="unit">만원/년</span></div>
-        <div class="sub">709건 &times; 평균 탁송비 22,960원</div>
+        <div class="value">4.8<span class="unit">억원/년</span></div>
+        <div class="sub">18,953건 &times; 평균 25,395원</div>
       </div>
       <div class="kpi-card blue">
         <div class="label">추가 핵심매출 (대여+주행)</div>
-        <div class="value">4,248<span class="unit">만원/년</span></div>
-        <div class="sub">709건 &times; 평균 핵심매출 59,900원</div>
+        <div class="value">12.6<span class="unit">억원/년</span></div>
+        <div class="sub">18,953건 &times; 평균 66,775원</div>
       </div>
       <div class="kpi-card amber">
         <div class="label">추가 GP</div>
-        <div class="value">1,338<span class="unit">만원/년</span></div>
-        <div class="sub">709건 &times; 평균 GP 18,870원</div>
+        <div class="value">4.4<span class="unit">억원/년</span></div>
+        <div class="sub">18,953건 &times; 평균 23,011원</div>
       </div>
       <div class="kpi-card green">
         <div class="label">총 GP 개선 (절감+추가)</div>
-        <div class="value">2,966<span class="unit">만원/년</span></div>
-        <div class="sub">수도권 확장 시 누적 1.1억</div>
+        <div class="value">9.2<span class="unit">억원/년</span></div>
+        <div class="sub">탁송비 절감 4.8억 + 추가 GP 4.4억</div>
       </div>
     </div>
   </div>
 
-  <!-- 현황 근거 -->
-  <div class="section">
-    <h2 class="section-title">근거: 충청 편도 현황 (2025년)</h2>
-    <div class="kpi-grid">
-      <div class="kpi-card" style="border-top: 3px solid var(--gray-300);">
-        <div class="label">충청 출발 편도 총 건수</div>
-        <div class="value" style="color: var(--gray-700);">23,162<span class="unit">건</span></div>
-        <div class="sub">대전 9,709 / 충남 6,057 / 충북 5,671 / 세종 1,725</div>
-      </div>
-      <div class="kpi-card" style="border-top: 3px solid var(--gray-300);">
-        <div class="label">연간 탁송비 총액</div>
-        <div class="value" style="color: var(--red);">3.80<span class="unit">억원</span></div>
-        <div class="sub">편도 반납 후 차량 원위치 비용</div>
-      </div>
-      <div class="kpi-card" style="border-top: 3px solid var(--gray-300);">
-        <div class="label">크로스 구간 (타시도 반납)</div>
-        <div class="value" style="color: var(--gray-700);">2,827<span class="unit">건</span></div>
-        <div class="sub">역방향 매칭 대상</div>
-      </div>
-      <div class="kpi-card" style="border-top: 3px solid var(--gray-300);">
-        <div class="label">양방향 매칭 가능 (MIN)</div>
-        <div class="value" style="color: var(--gray-700);">1,418<span class="unit">건</span></div>
-        <div class="sub">시간대 미적용 이론적 최대치</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Hub Summary -->
-  <div class="section">
-    <h2 class="section-title">주요 반납지 허브 (교통거점 중심)</h2>
-    <div class="hub-grid">
-      <div class="hub-card">
-        <div class="hub-icon">&#9992;</div>
-        <div class="hub-name">청주공항</div>
-        <div class="hub-cnt">278건</div>
-        <div class="hub-sub">대전 157 / 충남 71 / 세종 50</div>
-      </div>
-      <div class="hub-card">
-        <div class="hub-icon">&#128646;</div>
-        <div class="hub-name">오송역</div>
-        <div class="hub-cnt">359건</div>
-        <div class="hub-sub">대전 158 / 세종 140 / 충남 61</div>
-      </div>
-      <div class="hub-card">
-        <div class="hub-icon">&#127970;</div>
-        <div class="hub-name">청주시내</div>
-        <div class="hub-cnt">400건</div>
-        <div class="hub-sub">대전 225 / 충남 103 / 세종 72</div>
-      </div>
-      <div class="hub-card">
-        <div class="hub-icon">&#127963;</div>
-        <div class="hub-name">세종</div>
-        <div class="hub-cnt">563건</div>
-        <div class="hub-sub">충북 280 / 대전 228 / 충남 55</div>
-      </div>
-      <div class="hub-card">
-        <div class="hub-icon">&#127961;</div>
-        <div class="hub-name">천안/아산</div>
-        <div class="hub-cnt">409건</div>
-        <div class="hub-sub">충북 243 / 대전 119 / 세종 47</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Charts Row -->
-  <div class="section">
-    <h2 class="section-title">충청 내부 크로스 구간 상세</h2>
-    <div class="grid-2">
-      <div class="card">
-        <h3>반납지 동/읍 단위 TOP 15</h3>
-        <div class="chart-container">
-          <canvas id="chartRoutes"></canvas>
-        </div>
-      </div>
-      <div class="card">
-        <h3>전체 허브별 반납 비중 (2,827건)</h3>
-        <div class="chart-container">
-          <canvas id="chartDaejeonCB"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Detail Table -->
-  <div class="section">
-    <h2 class="section-title">반납지 상세 - 동/읍 단위 (건수순 TOP 30)</h2>
-    <div class="card" style="overflow-x:auto;">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>출발</th>
-            <th>반납 시군구</th>
-            <th>반납 동/읍</th>
-            <th>랜드마크</th>
-            <th class="num">건수</th>
-            <th class="num">평균탁송비</th>
-            <th class="num">평균핵심매출</th>
-            <th class="num">평균GP</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="highlight-row"><td>1</td><td>대전</td><td>청주시</td><td>오송읍</td><td>OSONG_STN</td><td class="num">158</td><td class="num">23,266</td><td class="num">75,227</td><td class="num">40,282</td></tr>
-          <tr class="highlight-row"><td>2</td><td>대전</td><td>청주시</td><td>내수읍</td><td>CJJ_AIRPORT</td><td class="num">157</td><td class="num">26,325</td><td class="num">50,321</td><td class="num">15,099</td></tr>
-          <tr class="highlight-row"><td>3</td><td>세종</td><td>청주시</td><td>오송읍</td><td>OSONG_STN</td><td class="num">140</td><td class="num">14,071</td><td class="num">73,555</td><td class="num">27,622</td></tr>
-          <tr><td>4</td><td>충북</td><td>세종시</td><td>조치원읍</td><td>-</td><td class="num">93</td><td class="num">13,462</td><td class="num">76,521</td><td class="num">24,440</td></tr>
-          <tr><td>5</td><td>충북</td><td>대전 동구</td><td>정동</td><td>-</td><td class="num">78</td><td class="num">22,346</td><td class="num">66,901</td><td class="num">32,193</td></tr>
-          <tr class="highlight-row"><td>6</td><td>충남</td><td>청주시</td><td>내수읍</td><td>CJJ_AIRPORT</td><td class="num">71</td><td class="num">23,817</td><td class="num">52,711</td><td class="num">12,531</td></tr>
-          <tr><td>7</td><td>충북</td><td>아산시</td><td>배방읍</td><td>-</td><td class="num">69</td><td class="num">21,065</td><td class="num">69,890</td><td class="num">32,084</td></tr>
-          <tr><td>8</td><td>대전</td><td>아산시</td><td>배방읍</td><td>-</td><td class="num">62</td><td class="num">36,790</td><td class="num">77,476</td><td class="num">34,904</td></tr>
-          <tr class="highlight-row"><td>9</td><td>충남</td><td>청주시</td><td>오송읍</td><td>OSONG_STN</td><td class="num">61</td><td class="num">19,803</td><td class="num">67,865</td><td class="num">25,841</td></tr>
-          <tr><td>10</td><td>충남</td><td>대전 동구</td><td>정동</td><td>-</td><td class="num">58</td><td class="num">33,853</td><td class="num">110,657</td><td class="num">61,369</td></tr>
-          <tr><td>11</td><td>대전</td><td>옥천군</td><td>옥천읍</td><td>-</td><td class="num">50</td><td class="num">20,000</td><td class="num">79,145</td><td class="num">14,585</td></tr>
-          <tr class="highlight-row"><td>12</td><td>세종</td><td>청주시</td><td>내수읍</td><td>CJJ_AIRPORT</td><td class="num">50</td><td class="num">20,120</td><td class="num">31,068</td><td class="num">1,796</td></tr>
-          <tr><td>13</td><td>충북</td><td>천안시</td><td>신부동</td><td>CHEONAN_STN</td><td class="num">49</td><td class="num">26,520</td><td class="num">59,225</td><td class="num">9,249</td></tr>
-          <tr><td>14</td><td>대전</td><td>계룡시</td><td>금암동</td><td>-</td><td class="num">42</td><td class="num">18,560</td><td class="num">55,161</td><td class="num">15,629</td></tr>
-          <tr><td>15</td><td>충북</td><td>세종시</td><td>나성동</td><td>-</td><td class="num">41</td><td class="num">17,659</td><td class="num">61,115</td><td class="num">12,318</td></tr>
-          <tr><td>16</td><td>대전</td><td>세종시</td><td>나성동</td><td>-</td><td class="num">37</td><td class="num">16,797</td><td class="num">66,640</td><td class="num">14,451</td></tr>
-          <tr><td>17</td><td>충북</td><td>대전 서구</td><td>둔산동</td><td>-</td><td class="num">34</td><td class="num">24,559</td><td class="num">54,280</td><td class="num">9,893</td></tr>
-          <tr><td>18</td><td>대전</td><td>계룡시</td><td>엄사면</td><td>-</td><td class="num">31</td><td class="num">21,613</td><td class="num">78,271</td><td class="num">18,393</td></tr>
-          <tr><td>19</td><td>대전</td><td>세종시</td><td>고운동</td><td>-</td><td class="num">31</td><td class="num">24,065</td><td class="num">141,767</td><td class="num">51,497</td></tr>
-          <tr><td>20</td><td>충북</td><td>세종시</td><td>어진동</td><td>-</td><td class="num">28</td><td class="num">17,000</td><td class="num">75,073</td><td class="num">14,238</td></tr>
-          <tr><td>21</td><td>충북</td><td>대전 서구</td><td>갈마동</td><td>-</td><td class="num">28</td><td class="num">27,661</td><td class="num">31,155</td><td class="num">-2,450</td></tr>
-          <tr><td>22</td><td>대전</td><td>세종시</td><td>조치원읍</td><td>-</td><td class="num">25</td><td class="num">20,980</td><td class="num">74,103</td><td class="num">29,605</td></tr>
-          <tr><td>23</td><td>세종</td><td>대전 서구</td><td>둔산동</td><td>-</td><td class="num">23</td><td class="num">15,370</td><td class="num">42,743</td><td class="num">16,158</td></tr>
-          <tr><td>24</td><td>대전</td><td>청주시</td><td>용암동</td><td>-</td><td class="num">22</td><td class="num">23,818</td><td class="num">59,832</td><td class="num">22,754</td></tr>
-          <tr><td>25</td><td>충북</td><td>대전 중구</td><td>오류동</td><td>-</td><td class="num">22</td><td class="num">23,545</td><td class="num">60,250</td><td class="num">14,039</td></tr>
-          <tr><td>26</td><td>충남</td><td>청주시</td><td>오창읍</td><td>-</td><td class="num">21</td><td class="num">24,119</td><td class="num">69,987</td><td class="num">18,046</td></tr>
-          <tr><td>27</td><td>대전</td><td>청주시</td><td>가경동</td><td>-</td><td class="num">21</td><td class="num">22,071</td><td class="num">97,652</td><td class="num">33,286</td></tr>
-          <tr><td>28</td><td>대전</td><td>세종시</td><td>도담동</td><td>-</td><td class="num">21</td><td class="num">18,548</td><td class="num">59,178</td><td class="num">21,149</td></tr>
-          <tr><td>29</td><td>충북</td><td>대전 유성구</td><td>봉명동</td><td>-</td><td class="num">21</td><td class="num">24,405</td><td class="num">50,493</td><td class="num">11,501</td></tr>
-          <tr><td>30</td><td>충북</td><td>천안시</td><td>불당동</td><td>-</td><td class="num">20</td><td class="num">26,125</td><td class="num">46,327</td><td class="num">4,339</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Matching Economics -->
-  <div class="section">
-    <h2 class="section-title">양방향 매칭 경제성 분석</h2>
-    <div class="grid-2">
-      <div class="card">
-        <h3>충청 내부 크로스 구간 매칭</h3>
-        <table>
-          <thead>
-            <tr><th>구간</th><th class="num">A&rarr;B</th><th class="num">B&rarr;A</th><th class="num">매칭(MIN)</th><th class="num">탁송비 절감</th><th class="num">추가 GP</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>대전 &harr; 충북</td><td class="num">595</td><td class="num">508</td><td class="num"><b>508</b></td><td class="num">1,268만</td><td class="num">943만</td></tr>
-            <tr><td>충북 &harr; 세종</td><td class="num">280</td><td class="num">265</td><td class="num"><b>265</b></td><td class="num">427만</td><td class="num">451만</td></tr>
-            <tr><td>충남 &harr; 충북</td><td class="num">251</td><td class="num">236</td><td class="num"><b>236</b></td><td class="num">572만</td><td class="num">370만</td></tr>
-            <tr><td>대전 &harr; 세종</td><td class="num">228</td><td class="num">194</td><td class="num"><b>194</b></td><td class="num">354만</td><td class="num">397만</td></tr>
-            <tr><td>대전 &harr; 충남</td><td class="num">199</td><td class="num">163</td><td class="num"><b>163</b></td><td class="num">508만</td><td class="num">447만</td></tr>
-            <tr><td>충남 &harr; 세종</td><td class="num">55</td><td class="num">52</td><td class="num"><b>52</b></td><td class="num">127만</td><td class="num">68만</td></tr>
-            <tr class="highlight-row"><td><b>합계</b></td><td class="num"></td><td class="num"></td><td class="num"><b>1,418</b></td><td class="num"><b>3,256만</b></td><td class="num"><b>2,676만</b></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card">
-        <h3>매칭 효과 시각화 (100% / 50% 매칭률)</h3>
-        <div class="chart-container">
-          <canvas id="chartEconomics"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Hourly Demand Matching -->
-  <div class="section">
-    <h2 class="section-title">시간대별 수요 매칭 분석 (월별-시간대 기준)</h2>
-
-    <!-- Match rate cards -->
-    <div class="kpi-grid" style="margin-bottom: 20px;">
-      <div class="kpi-card green">
-        <div class="label">충북 (CB) 매칭률</div>
-        <div class="value">61.0<span class="unit">%</span></div>
-        <div class="sub">648건 매칭 / 1,062건 대상</div>
-      </div>
-      <div class="kpi-card green">
-        <div class="label">대전 (DJ) 매칭률</div>
-        <div class="value">62.3<span class="unit">%</span></div>
-        <div class="sub">553건 매칭 / 887건 대상</div>
-      </div>
-      <div class="kpi-card amber">
-        <div class="label">세종 (SJ) 매칭률</div>
-        <div class="value">49.9<span class="unit">%</span></div>
-        <div class="sub">267건 매칭 / 535건 대상</div>
-      </div>
-      <div class="kpi-card amber">
-        <div class="label">충남 (CN) 매칭률</div>
-        <div class="value">45.9<span class="unit">%</span></div>
-        <div class="sub">211건 매칭 / 460건 대상</div>
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <h3>시간대별 IN(반납) vs OUT(출발) 수요 패턴 (충청 전체)</h3>
-        <div class="chart-container" style="height: 300px;">
-          <canvas id="chartHourly"></canvas>
-        </div>
-      </div>
-      <div class="card">
-        <h3>허브별 시간대 매칭률</h3>
-        <div class="chart-container" style="height: 300px;">
-          <canvas id="chartHubMatch"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout" style="background: var(--green-light); border-color: var(--green); margin-top: 0;">
-      <h4 style="color: #065f46;">시간대 매칭 분석 결론: 50% 보수 추정 달성 가능</h4>
-      <p style="color: #064e3b;">
-        월별-시간대 기준 전체 매칭률 <b>57.0%</b> (1,679건/2,944건 대상) &rarr; 50% 보수적 추정치 상회<br>
-        <b>대전/충북 60%+</b>: 양방향 수요 균형 양호. <b>세종/충남 46~50%</b>: OUT 수요 부족으로 상대적 낮음<br>
-        <b>핵심 패턴:</b> IN(반납) 15~17시 집중, OUT(출발) 8~11시 집중 &rarr; 시간차 존재하나 매칭 윈도우로 해소 가능 (아래 상세)
-      </p>
-    </div>
-  </div>
-
-  <!-- Lead Time Analysis -->
-  <div class="section">
-    <h2 class="section-title">예약 리드타임 분석: D-7 사전 매칭이 가능한가?</h2>
-    <div class="grid-2">
-      <div class="card">
-        <h3>편도 예약 리드타임 분포 (크로스 구간, 3,104건)</h3>
-        <div class="chart-container" style="height: 300px;">
-          <canvas id="chartLeadTime"></canvas>
-        </div>
-      </div>
-      <div class="card">
-        <h3>요일별 IN(반납) vs OUT(출발) 흐름</h3>
-        <div class="chart-container" style="height: 300px;">
-          <canvas id="chartDow"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout" style="background: #fef2f2; border-color: var(--red); margin-top: 0;">
-      <h4 style="color: #991b1b;">D-7 사전 매칭 모델의 한계</h4>
-      <p style="color: #7f1d1d;">
-        편도 예약의 <b>47%가 출발 3시간 이내</b>, <b>75%가 당일 예약</b> &rarr; D-7 시점에는 IN 차량 도착 여부 자체를 알 수 없음<br>
-        7일 이상 사전 예약은 전체의 <b>6.9%에 불과</b> &rarr; D-7 사전 매칭 대상 풀이 극히 제한적<br>
-        <b>결론:</b> 원래 기획안(D-7 얼리버드 사전 매칭)은 실현 불가. 매칭 모델 수정 필요
-      </p>
-    </div>
-  </div>
-
-  <!-- Matching Window & Revised Model -->
-  <div class="section">
-    <h2 class="section-title">수정 모델: 롤링 재고 + Push 알림</h2>
-    <div class="grid-2">
-      <div class="card">
-        <h3>매칭 윈도우별 매칭률 비교</h3>
-        <table>
-          <thead>
-            <tr><th>매칭 윈도우</th><th class="num">충북</th><th class="num">대전</th><th class="num">세종</th><th class="num">충남</th><th class="num">전체</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>시간대별 (같은 시간)</td><td class="num">61%</td><td class="num">62%</td><td class="num">50%</td><td class="num">46%</td><td class="num">57%</td></tr>
-            <tr><td>일별 (당일 매칭)</td><td class="num">71%</td><td class="num">72%</td><td class="num">64%</td><td class="num">65%</td><td class="num">68%</td></tr>
-            <tr><td>오후IN &rarr; 익일오전OUT</td><td class="num">50%</td><td class="num">57%</td><td class="num">40%</td><td class="num">41%</td><td class="num">47%</td></tr>
-            <tr class="highlight-row"><td><b>주별 (7일 윈도우)</b></td><td class="num"><b>91%</b></td><td class="num"><b>95%</b></td><td class="num"><b>88%</b></td><td class="num"><b>89%</b></td><td class="num"><b>91%</b></td></tr>
-          </tbody>
-        </table>
-        <div style="margin-top: 12px; padding: 12px; background: var(--primary-light); border-radius: 8px; font-size: 13px;">
-          <b>핵심:</b> 매칭 윈도우를 넓힐수록 매칭률 급상승. 차량을 허브에 2~3일 대기시키면 <b>70~80% 현실적 매칭률</b> 확보 가능
-        </div>
-      </div>
-      <div class="card">
-        <h3>기존 모델 vs 수정 모델</h3>
-        <table>
-          <thead>
-            <tr><th></th><th>기존: D-7 사전 매칭</th><th style="color: var(--primary);"><b>수정: 롤링 재고</b></th></tr>
-          </thead>
-          <tbody>
-            <tr><td style="font-weight:600;">매칭 방식</td><td>IN 예약 시점에 OUT 고객 사전 확보</td><td>IN 반납 후 허브 대기 &rarr; OUT 고객 push 알림</td></tr>
-            <tr><td style="font-weight:600;">전제 조건</td><td>IN/OUT 모두 7일 전 예약 필요</td><td>IN 직전 예약 OK (75% 당일)</td></tr>
-            <tr><td style="font-weight:600;">매칭 윈도우</td><td>고정 (D-7)</td><td>유연 (24~72시간)</td></tr>
-            <tr><td style="font-weight:600;">리드타임 대응</td><td style="color: var(--red);">6.9%만 대상</td><td style="color: var(--green);"><b>100% 대상</b></td></tr>
-            <tr><td style="font-weight:600;">요일 패턴 활용</td><td>불가</td><td><b>금/일 IN &rarr; 월/토 OUT 자연 순환</b></td></tr>
-            <tr><td style="font-weight:600;">대기 비용</td><td>없음</td><td>허브 주변 존 1~2대 (일평균 1.7~2.3대 IN)</td></tr>
-            <tr><td style="font-weight:600;">예상 매칭률</td><td style="color: var(--red);">매우 낮음</td><td style="color: var(--green);"><b>50~70%</b></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="callout" style="background: var(--primary-light); border-color: var(--primary); margin-top: 0;">
-      <h4 style="color: #1e3a5f;">수정 모델 운영 플로우</h4>
-      <p style="color: #1e3a5f;">
-        <b>1.</b> IN 고객 편도 반납 (예: 금요일 16시, 대전 &rarr; 오송역) &rarr; 차량이 오송역 인근 쏘카존에 배치<br>
-        <b>2.</b> 즉시 탁송 보내지 않고 <b>24~48시간 대기</b> (일평균 IN 2대 수준, 존 부담 미미)<br>
-        <b>3.</b> 역방향 수요 고객에게 <b>"오송역 출발 편도수수료 0원" push 알림</b> 발송<br>
-        <b>4.</b> 매칭 성공 시: 탁송비 절감 + 추가 매출 / 실패 시: 기존 핸들러 탁송 (<b>Zero-Risk 유지</b>)<br>
-        <b>5.</b> 요일 자연순환 활용: 금/일 IN 초과 &rarr; 월/토 OUT 초과로 2~3일 내 자연 매칭
-      </p>
-    </div>
-  </div>
-
-  <!-- Phase Comparison -->
+  <!-- 단계별 확장 -->
   <div class="section">
     <h2 class="section-title">단계별 확장 계획</h2>
-    <div class="phase-grid">
-      <div class="phase-box p1">
-        <div class="phase-label">Phase 1: 충청 내부</div>
-        <div class="metric-row"><span>매칭 대상</span><span class="metric-value">1,418건 / yr</span></div>
-        <div class="metric-row"><span>50% 매칭 시</span><span class="metric-value">709건</span></div>
-        <div class="metric-row"><span>탁송비 절감</span><span class="metric-value">1,628만</span></div>
-        <div class="metric-row"><span>추가 핵심매출</span><span class="metric-value">4,248만</span></div>
-        <div class="metric-row"><span>추가 GP</span><span class="metric-value">1,338만</span></div>
-        <div class="metric-row" style="border-top:2px solid var(--primary); margin-top:4px; padding-top:8px;">
-          <span><b>총 GP 개선</b></span><span class="metric-value" style="color:var(--primary);">2,966만</span></div>
+    <div class="phase-row">
+      <div class="phase-card" style="background: var(--primary-light); border: 2px solid var(--primary);">
+        <div class="phase-num" style="background: var(--primary);">Phase 1</div>
+        <div class="phase-title">충청 파일럿</div>
+        <div class="phase-value" style="color: var(--primary);">+2,966만</div>
+        <div class="phase-sub">1,418건 대상 / 709건 매칭(50%)</div>
+        <div class="phase-sub">충청사업팀 관할 내 독자 실행</div>
       </div>
-      <div class="phase-arrow">&rarr;</div>
-      <div class="phase-box p2">
-        <div class="phase-label">Phase 2: +수도권 &harr; 충청</div>
-        <div class="metric-row"><span>추가 매칭 대상</span><span class="metric-value">+2,047건 / yr</span></div>
-        <div class="metric-row"><span>50% 매칭 시</span><span class="metric-value">+1,024건</span></div>
-        <div class="metric-row"><span>탁송비 절감</span><span class="metric-value">4,337만</span></div>
-        <div class="metric-row"><span>추가 핵심매출</span><span class="metric-value">7,795만</span></div>
-        <div class="metric-row"><span>추가 GP</span><span class="metric-value">3,799만</span></div>
-        <div class="metric-row" style="border-top:2px solid var(--green); margin-top:4px; padding-top:8px;">
-          <span><b>누적 총 GP 개선</b></span><span class="metric-value" style="color:var(--green);">1.1억</span></div>
+      <div class="phase-card" style="background: var(--accent-light); border: 2px solid var(--accent);">
+        <div class="phase-num" style="background: var(--accent);">Phase 2</div>
+        <div class="phase-title">수도권 확장</div>
+        <div class="phase-value" style="color: var(--accent);">25,768건</div>
+        <div class="phase-sub">경기&harr;서울 17,544건 등</div>
+        <div class="phase-sub">전체 매칭의 68% 집중</div>
+      </div>
+      <div class="phase-card" style="background: var(--green-light); border: 2px solid var(--green);">
+        <div class="phase-num" style="background: var(--green);">Phase 3</div>
+        <div class="phase-title">전국 확장</div>
+        <div class="phase-value" style="color: var(--green);">+9.2억</div>
+        <div class="phase-sub">37,906건 대상 / 18,953건 매칭(50%)</div>
+        <div class="phase-sub">탁송비 4.8억 절감 + GP 4.4억</div>
       </div>
     </div>
 
-    <div class="callout">
-      <h4>Zero-Risk: 매칭 실패해도 추가 손실 0원</h4>
-      <p>
+    <div class="callout" style="background: var(--accent-light); border: 2px solid var(--accent); margin-top: 20px;">
+      <h4 style="color: #92400e;">Zero-Risk: 매칭 실패해도 추가 손실 0원</h4>
+      <p style="color: #78350f;">
         <b>매칭 성공:</b> 탁송비 절감 + 추가 매출 발생 (OUT 고객 대여료+주행료)<br>
         <b>매칭 실패:</b> 기존 유료 편도 프로세스 그대로 진행 &rarr; <b>추가 손실 0원</b><br>
-        <b>실행 이점:</b> 충청사업팀 관할 내 독자 실행 가능, 타팀 협조 불필요
+        어떤 단계에서든 실패 시 기존 프로세스로 즉시 복귀 가능
       </p>
     </div>
   </div>
 
-  <!-- Pilot Suggestion -->
+  <!-- 상세 분석 네비게이션 -->
   <div class="section">
-    <h2 class="section-title">실행 방안: 파일럿 우선순위</h2>
-    <div class="grid-3">
-      <div class="card" style="border-top: 4px solid var(--primary);">
-        <h3>1순위: 대전/세종 &harr; 오송역&middot;청주공항</h3>
-        <table>
-          <tr><td>연간 건수</td><td class="num"><b>637건</b></td></tr>
-          <tr><td>교통허브</td><td class="num">시간대 패턴 규칙적</td></tr>
-          <tr><td>평균 탁송비</td><td class="num">~22,000원</td></tr>
-          <tr><td>평균 핵심매출</td><td class="num">~60,000원</td></tr>
-        </table>
-      </div>
-      <div class="card" style="border-top: 4px solid var(--accent);">
-        <h3>2순위: 충북 &harr; 천안/아산</h3>
-        <table>
-          <tr><td>연간 건수</td><td class="num"><b>243건</b></td></tr>
-          <tr><td>특성</td><td class="num">산업단지 통근 수요</td></tr>
-          <tr><td>평균 탁송비</td><td class="num">~24,000원</td></tr>
-          <tr><td>평균 핵심매출</td><td class="num">~55,000원</td></tr>
-        </table>
-      </div>
-      <div class="card" style="border-top: 4px solid var(--green);">
-        <h3>3순위: 대전 &harr; 계룡시</h3>
-        <table>
-          <tr><td>연간 건수</td><td class="num"><b>78건</b></td></tr>
-          <tr><td>특성</td><td class="num">군 관련, 단거리</td></tr>
-          <tr><td>평균 탁송비</td><td class="num">~20,000원</td></tr>
-          <tr><td>평균 핵심매출</td><td class="num">~64,000원</td></tr>
-        </table>
-      </div>
+    <h2 class="section-title">상세 분석</h2>
+    <div class="nav-cards">
+      <a href="chungcheong-oneway-dashboard.html" class="nav-card">
+        <span class="arrow">&rarr;</span>
+        <h3>충청 파일럿 분석</h3>
+        <p>충청 내부 6개 크로스 구간, 시간대별 매칭률 57%, 요일 패턴, 리드타임 분석, 파일럿 우선순위</p>
+      </a>
+      <a href="nationwide-oneway-dashboard.html" class="nav-card">
+        <span class="arrow">&rarr;</span>
+        <h3>전국 확장 분석</h3>
+        <p>전국 TOP30 구간, 권역별 분포, 시간대/요일 패턴, 리드타임, 매칭 경제성 분석</p>
+      </a>
     </div>
   </div>
 
   <div class="footer">
-    충청사업팀 | 얼리버드 편도 매칭 서비스 분석 | 데이터 기준: 2025년 (reservation_v2 + profit_socar_reservation)
+    얼리버드 편도 매칭 서비스 분석 | 데이터 기준: 2025년 (reservation_v2 + profit_socar_reservation)
   </div>
 
 </div>
-
-<script>
-// Chart 1: Top routes bar chart (dong level)
-const ctxRoutes = document.getElementById('chartRoutes').getContext('2d');
-new Chart(ctxRoutes, {
-  type: 'bar',
-  data: {
-    labels: [
-      '대전→오송읍(오송역)', '대전→내수읍(청주공항)', '세종→오송읍(오송역)',
-      '충북→조치원읍', '충북→정동(대전역)', '충남→내수읍(청주공항)',
-      '충북→배방읍(아산)', '대전→배방읍(아산)', '충남→오송읍(오송역)',
-      '충남→정동(대전역)', '대전→옥천읍', '세종→내수읍(청주공항)',
-      '충북→신부동(천안역)', '대전→금암동(계룡)', '충북→나성동(세종)'
-    ],
-    datasets: [{
-      label: '건수',
-      data: [158, 157, 140, 93, 78, 71, 69, 62, 61, 58, 50, 50, 49, 42, 41],
-      backgroundColor: [
-        '#1a56db','#8b5cf6','#1a56db',
-        '#f59e0b','#fbbf24','#8b5cf6',
-        '#f97316','#f97316','#1a56db',
-        '#fbbf24','#34d399','#8b5cf6',
-        '#f97316','#34d399','#f59e0b'
-      ],
-      borderRadius: 4
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: ctx => `${ctx.parsed.x.toLocaleString()}건`
-        }
-      }
-    },
-    scales: {
-      x: {
-        grid: { color: '#f3f4f6' },
-        ticks: { font: { size: 11 } }
-      },
-      y: {
-        ticks: { font: { size: 10 } }
-      }
-    }
-  }
-});
-
-// Chart 2: Hub distribution doughnut
-const ctxPie = document.getElementById('chartDaejeonCB').getContext('2d');
-const hubTotal = 563 + 400 + 359 + 278 + 409 + 264 + 225 + 214 + 91 + 24;
-new Chart(ctxPie, {
-  type: 'doughnut',
-  data: {
-    labels: ['세종 (563)', '청주시내 (400)', '천안/아산 (409)', '오송역 (359)', '청주공항 (278)', '대전 동구 (264)', '대전 서구 (225)', '대전 유성구 (214)', '계룡시 (91)', '기타'],
-    datasets: [{
-      data: [563, 400, 409, 359, 278, 264, 225, 214, 91, 24],
-      backgroundColor: [
-        '#1a56db', '#3b82f6', '#f59e0b', '#0ea5e9', '#8b5cf6',
-        '#fbbf24', '#f97316', '#34d399', '#ec4899', '#d1d5db'
-      ],
-      borderWidth: 2,
-      borderColor: '#fff'
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'right',
-        labels: { font: { size: 11 }, padding: 8 }
-      },
-      tooltip: {
-        callbacks: {
-          label: ctx => {
-            const pct = (ctx.parsed / 2827 * 100).toFixed(1);
-            return ` ${ctx.label}: ${pct}%`;
-          }
-        }
-      }
-    }
-  }
-});
-
-// Chart: Hourly IN vs OUT demand pattern
-const hourLabels = Array.from({length: 24}, (_, i) => `${i}시`);
-const hourlyIn  = [158,97,67,36,63,58,46,36,56,65,68,77,111,144,186,260,273,255,227,218,162,162,116,163];
-const hourlyOut = [85,48,36,49,50,38,51,129,207,267,251,231,198,170,145,144,147,127,134,142,113,93,123,126];
-const hourlyMatched = hourlyIn.map((v, i) => Math.min(v, hourlyOut[i]));
-
-new Chart(document.getElementById('chartHourly').getContext('2d'), {
-  type: 'line',
-  data: {
-    labels: hourLabels,
-    datasets: [
-      {
-        label: 'IN (반납)',
-        data: hourlyIn,
-        borderColor: '#ef4444',
-        backgroundColor: 'rgba(239,68,68,0.08)',
-        fill: false,
-        tension: 0.3,
-        pointRadius: 3,
-        borderWidth: 2.5
-      },
-      {
-        label: 'OUT (출발)',
-        data: hourlyOut,
-        borderColor: '#1a56db',
-        backgroundColor: 'rgba(26,86,219,0.08)',
-        fill: false,
-        tension: 0.3,
-        pointRadius: 3,
-        borderWidth: 2.5
-      },
-      {
-        label: '매칭 가능',
-        data: hourlyMatched,
-        borderColor: '#10b981',
-        backgroundColor: 'rgba(16,185,129,0.15)',
-        fill: true,
-        tension: 0.3,
-        pointRadius: 0,
-        borderWidth: 1.5,
-        borderDash: [4, 4]
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top', labels: { font: { size: 11 }, usePointStyle: true } },
-      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}건` } }
-    },
-    scales: {
-      y: { grid: { color: '#f3f4f6' }, ticks: { font: { size: 10 }, callback: v => v + '건' } },
-      x: { ticks: { font: { size: 10 } } }
-    }
-  }
-});
-
-// Chart: Hub match rates
-new Chart(document.getElementById('chartHubMatch').getContext('2d'), {
-  type: 'bar',
-  data: {
-    labels: ['충북 (CB)', '대전 (DJ)', '세종 (SJ)', '충남 (CN)', '전체 평균'],
-    datasets: [
-      {
-        label: '대상 건수',
-        data: [1062, 887, 535, 460, 2944],
-        backgroundColor: '#dbeafe',
-        borderColor: '#93c5fd',
-        borderWidth: 1,
-        borderRadius: 4,
-        yAxisID: 'y'
-      },
-      {
-        label: '시간대 매칭 건수',
-        data: [648, 553, 267, 211, 1679],
-        backgroundColor: '#10b981',
-        borderRadius: 4,
-        yAxisID: 'y'
-      },
-      {
-        label: '매칭률 (%)',
-        data: [61.0, 62.3, 49.9, 45.9, 57.0],
-        type: 'line',
-        borderColor: '#f59e0b',
-        backgroundColor: '#f59e0b',
-        pointRadius: 5,
-        pointStyle: 'rectRounded',
-        borderWidth: 2.5,
-        yAxisID: 'y1'
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top', labels: { font: { size: 11 }, usePointStyle: true } },
-      tooltip: {
-        callbacks: {
-          label: ctx => ctx.dataset.label === '매칭률 (%)' ?
-            ` ${ctx.dataset.label}: ${ctx.parsed.y}%` :
-            ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}건`
-        }
-      }
-    },
-    scales: {
-      y: { grid: { color: '#f3f4f6' }, ticks: { font: { size: 10 }, callback: v => v.toLocaleString() + '건' } },
-      y1: { position: 'right', min: 0, max: 100, grid: { display: false }, ticks: { font: { size: 10 }, callback: v => v + '%' } },
-      x: { ticks: { font: { size: 10 } } }
-    }
-  }
-});
-
-// Chart: Lead time distribution
-new Chart(document.getElementById('chartLeadTime').getContext('2d'), {
-  type: 'bar',
-  data: {
-    labels: ['1시간 미만', '1~3시간', '3~6시간', '6~12시간', '12~24시간', '1~2일', '2~3일', '3~7일', '7일+'],
-    datasets: [
-      {
-        label: '건수',
-        data: [757, 707, 201, 245, 428, 229, 110, 214, 213],
-        backgroundColor: [
-          '#ef4444','#ef4444','#f97316','#f97316','#f59e0b',
-          '#84cc16','#22c55e','#10b981','#10b981'
-        ],
-        borderRadius: 4
-      },
-      {
-        label: '누적 비율 (%)',
-        data: [24.4, 47.2, 53.6, 61.5, 75.3, 82.7, 86.2, 93.1, 100],
-        type: 'line',
-        borderColor: '#1a56db',
-        backgroundColor: '#1a56db',
-        pointRadius: 4,
-        pointStyle: 'circle',
-        borderWidth: 2.5,
-        yAxisID: 'y1'
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top', labels: { font: { size: 11 }, usePointStyle: true } },
-      tooltip: {
-        callbacks: {
-          label: ctx => ctx.dataset.label === '누적 비율 (%)' ?
-            ` 누적: ${ctx.parsed.y}%` :
-            ` ${ctx.parsed.y.toLocaleString()}건`
-        }
-      }
-    },
-    scales: {
-      y: { grid: { color: '#f3f4f6' }, ticks: { font: { size: 10 }, callback: v => v.toLocaleString() + '건' } },
-      y1: { position: 'right', min: 0, max: 100, grid: { display: false }, ticks: { font: { size: 10 }, callback: v => v + '%' } },
-      x: { ticks: { font: { size: 10 } } }
-    }
-  }
-});
-
-// Chart: Day-of-week IN vs OUT
-new Chart(document.getElementById('chartDow').getContext('2d'), {
-  type: 'bar',
-  data: {
-    labels: ['일', '월', '화', '수', '목', '금', '토'],
-    datasets: [
-      {
-        label: 'IN (반납)',
-        data: [397, 382, 447, 446, 493, 567, 372],
-        backgroundColor: '#ef4444',
-        borderRadius: 4
-      },
-      {
-        label: 'OUT (출발)',
-        data: [320, 446, 452, 480, 476, 526, 404],
-        backgroundColor: '#1a56db',
-        borderRadius: 4
-      },
-      {
-        label: '순흐름 (IN-OUT)',
-        data: [77, -64, -5, -34, 17, 41, -32],
-        type: 'line',
-        borderColor: '#10b981',
-        backgroundColor: ctx => ctx.raw >= 0 ? '#10b981' : '#f59e0b',
-        pointRadius: 6,
-        pointStyle: 'rectRounded',
-        borderWidth: 2,
-        yAxisID: 'y1'
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top', labels: { font: { size: 11 }, usePointStyle: true } },
-      tooltip: {
-        callbacks: {
-          label: ctx => {
-            if (ctx.dataset.label === '순흐름 (IN-OUT)') {
-              const v = ctx.parsed.y;
-              return v >= 0 ? ` IN 초과: +${v}건 (차량 누적)` : ` OUT 초과: ${v}건 (차량 소진)`;
-            }
-            return ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}건`;
-          }
-        }
-      }
-    },
-    scales: {
-      y: { grid: { color: '#f3f4f6' }, ticks: { font: { size: 10 }, callback: v => v.toLocaleString() + '건' } },
-      y1: { position: 'right', grid: { display: false }, ticks: { font: { size: 10 }, callback: v => (v >= 0 ? '+' : '') + v } },
-      x: { ticks: { font: { size: 11, weight: 'bold' } } }
-    }
-  }
-});
-
-// Chart 3: Economics grouped bar
-const ctxEcon = document.getElementById('chartEconomics').getContext('2d');
-new Chart(ctxEcon, {
-  type: 'bar',
-  data: {
-    labels: ['탁송비 절감', '추가 핵심매출', '추가 GP', '총 GP개선'],
-    datasets: [
-      {
-        label: '100% 매칭',
-        data: [3256, 8496, 2676, 5932],
-        backgroundColor: '#1a56db',
-        borderRadius: 4
-      },
-      {
-        label: '50% 매칭 (보수적)',
-        data: [1628, 4248, 1338, 2966],
-        backgroundColor: '#93c5fd',
-        borderRadius: 4
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top',
-        labels: { font: { size: 12 } }
-      },
-      tooltip: {
-        callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}만원`
-        }
-      }
-    },
-    scales: {
-      y: {
-        grid: { color: '#f3f4f6' },
-        ticks: {
-          font: { size: 11 },
-          callback: v => v.toLocaleString() + '만'
-        }
-      },
-      x: {
-        ticks: { font: { size: 11 } }
-      }
-    }
-  }
-});
-</script>
-
 </body>
 </html>

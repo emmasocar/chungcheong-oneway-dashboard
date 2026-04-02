@@ -32,6 +32,44 @@
     line-height: 1.6;
   }
 
+  /* Navigation */
+  .nav {
+    background: white;
+    border-bottom: 2px solid var(--gray-200);
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+  .nav-brand {
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--primary);
+    padding: 14px 16px 14px 0;
+    border-right: 1px solid var(--gray-200);
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+  .nav a {
+    display: inline-block;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-500);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav a:hover { color: var(--gray-900); background: var(--gray-50); }
+  .nav a.active { color: var(--primary); border-bottom-color: var(--primary); }
+
   .container {
     max-width: 1280px;
     margin: 0 auto;
@@ -278,6 +316,14 @@
 </style>
 </head>
 <body>
+<div class="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">얼리버드 편도 매칭</span>
+    <a href="index.html">지역 편도 개요</a>
+    <a href="chungcheong-oneway-dashboard.html" class="active">충청 파일럿</a>
+    <a href="nationwide-oneway-dashboard.html">전국 확장</a>
+  </div>
+</div>
 
 <div class="container">
 
