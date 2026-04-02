@@ -279,6 +279,104 @@
     </div>
   </div>
 
+  <!-- 고객 여정 플로우 -->
+  <div class="section">
+    <h2 class="section-title">고객 여정: B고객이 매칭 차량을 잡는 과정</h2>
+    <div class="card">
+      <p style="font-size:14px; color:var(--gray-700); margin-bottom:16px; line-height:1.8;">
+        핸들러 앱과 유사하게, <b>B고객이 직접 매칭 가능 차량을 확인하고 선택</b>하는 구조.<br>
+        D-7 사전 매칭이 아니므로 실제 반납된 차량의 <b>차명(car_name), 출발지, 방면, 출발 가능 시간</b>이 모두 노출됨.
+      </p>
+
+      <div class="journey-grid">
+        <!-- 왼쪽: 고객 여정 -->
+        <div class="journey-col">
+          <h3 style="background: var(--primary-light); color: var(--primary);">B고객 여정</h3>
+          <div class="flow-step" style="background: var(--primary-light);">
+            <div class="flow-num">1</div>
+            <div><b>Push 알림 수신</b><br><span style="font-size:12px; color:var(--gray-500);">"청주 출발 &rarr; 대전 방면 편도수수료 0원 차량이 있습니다"</span></div>
+          </div>
+          <div class="flow-step" style="background: var(--primary-light);">
+            <div class="flow-num">2</div>
+            <div><b>앱에서 매칭 차량 목록 확인</b><br><span style="font-size:12px; color:var(--gray-500);">차명 / 출발지 / 도착 방면 / 출발 가능 시간</span></div>
+          </div>
+          <div class="flow-step" style="background: var(--green-light);">
+            <div class="flow-num" style="background: var(--green);">3</div>
+            <div><b>원하는 차량 선택 &rarr; 예약 확정</b><br><span style="font-size:12px; color:var(--gray-500);">편도수수료 0원, 대여료+주행료만 결제</span></div>
+          </div>
+          <div class="flow-step" style="background: var(--green-light);">
+            <div class="flow-num" style="background: var(--green);">4</div>
+            <div><b>청주에서 출발 &rarr; 대전 내 아무 쏘카존 반납</b><br><span style="font-size:12px; color:var(--gray-500);">정확한 존 지정 없이 시도 내 자유 반납</span></div>
+          </div>
+        </div>
+
+        <!-- 오른쪽: 앱 화면 모의 -->
+        <div class="journey-col">
+          <h3 style="background: var(--gray-100); color: var(--gray-700);">앱 화면 (예시)</h3>
+          <div style="background: white; border: 2px solid var(--gray-200); border-radius: 16px; padding: 20px; max-width: 320px; margin: 0 auto;">
+            <div style="text-align:center; margin-bottom:12px;">
+              <span style="font-size:11px; background:var(--green); color:white; padding:3px 10px; border-radius:20px; font-weight:700;">편도수수료 0원</span>
+            </div>
+            <div style="font-size:13px; font-weight:700; color:var(--gray-700); margin-bottom:12px; text-align:center;">
+              청주 출발 &rarr; 대전 방면
+            </div>
+            <!-- 차량 카드 1 -->
+            <div style="border:1.5px solid var(--primary); border-radius:10px; padding:12px; margin-bottom:8px; background:var(--primary-light);">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <div style="font-size:14px; font-weight:700;">아반떼 CN7</div>
+                  <div style="font-size:11px; color:var(--gray-500);">청주공항 쏘카존</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:12px; font-weight:700; color:var(--primary);">즉시 출발 가능</div>
+                  <div style="font-size:11px; color:var(--gray-500);">오늘 18:00까지</div>
+                </div>
+              </div>
+            </div>
+            <!-- 차량 카드 2 -->
+            <div style="border:1.5px solid var(--gray-200); border-radius:10px; padding:12px; margin-bottom:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <div style="font-size:14px; font-weight:700;">투싼 NX4</div>
+                  <div style="font-size:11px; color:var(--gray-500);">오송역 쏘카존</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:12px; font-weight:700; color:var(--gray-700);">14:00 이후</div>
+                  <div style="font-size:11px; color:var(--gray-500);">내일 14:00까지</div>
+                </div>
+              </div>
+            </div>
+            <!-- 차량 카드 3 -->
+            <div style="border:1.5px solid var(--gray-200); border-radius:10px; padding:12px; margin-bottom:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <div style="font-size:14px; font-weight:700;">쏘나타 DN8</div>
+                  <div style="font-size:11px; color:var(--gray-500);">청주 성안길 쏘카존</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:12px; font-weight:700; color:var(--gray-700);">즉시 출발 가능</div>
+                  <div style="font-size:11px; color:var(--gray-500);">오늘 22:00까지</div>
+                </div>
+              </div>
+            </div>
+            <div style="text-align:center; margin-top:12px; font-size:11px; color:var(--gray-500);">
+              * 반납된 실제 차량 기준, 실시간 업데이트
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="background:var(--primary-light); border:2px solid var(--primary); margin-top:16px;">
+        <h4 style="color:var(--primary);">D-7이 아니기 때문에 가능한 것</h4>
+        <p style="color:#1e3a5f; font-size:13px;">
+          D-7 사전 매칭이었다면 아직 반납 전이라 <b>차종만 노출</b> 가능 (어떤 차가 올지 불확실)<br>
+          롤링 재고 모델은 <b>이미 반납된 차량</b>이므로 &rarr; <b>차명, 위치, 출발 가능 시간 모두 확정</b><br>
+          고객 입장에서 "내가 탈 차"를 직접 보고 고르는 <b>핸들러앱 방식</b>의 확실한 UX
+        </p>
+      </div>
+    </div>
+  </div>
+
   <!-- AS-IS vs TO-BE 여정 플로우 -->
   <div class="section">
     <h2 class="section-title">운영 여정 비교: AS-IS vs TO-BE</h2>
