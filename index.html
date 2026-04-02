@@ -242,7 +242,7 @@
       <div class="flow-step" style="background: var(--primary-light);">
         <div class="flow-num">2</div>
         <div>청주 허브존에 <b>24h 대기</b> + 역방향 고객에게 <b>"청주 출발 편도 0원" push 알림</b></div>
-        <span class="flow-cost neutral">대기 비용: ~7.9K/일</span>
+        <span class="flow-cost neutral">대기 비용: ~9.5K/일</span>
       </div>
       <div class="flow-step" style="background: var(--green-light);">
         <div class="flow-num" style="background: var(--green);">3</div>
@@ -295,7 +295,7 @@
           <div class="flow-step" style="background: #fef2f2;">
             <div class="flow-num" style="background: var(--red);">2</div>
             <div>차량 유휴 대기 <b>평균 24.8시간</b></div>
-            <span class="flow-cost cost">-7,854원</span>
+            <span class="flow-cost cost">-9,520원</span>
           </div>
           <div class="flow-step" style="background: #fef2f2;">
             <div class="flow-num" style="background: var(--red);">3</div>
@@ -307,7 +307,7 @@
             <div>차량 재가동 (X존 복귀)</div>
           </div>
           <div class="journey-total" style="background: #fef2f2; color: #991b1b;">
-            총 비용: -23,941원 / 추가 매출: 0원
+            총 비용: -25,607원 / 추가 매출: 0원
           </div>
         </div>
         <div class="journey-col">
@@ -339,7 +339,7 @@
       </div>
       <div style="text-align:center; margin-top:16px; padding:16px; background: var(--primary-light); border-radius:10px;">
         <span style="font-size:15px; font-weight:700; color: var(--primary);">
-          건당 GP 개선: 탁송비 절감 6,087원 + 추가 GP 23,011원 = <b style="font-size:18px;">+29,098원</b>
+          건당 GP 개선: 탁송비 절감 6,087원 + 주차비 절감 1,666원 + 추가 GP 23,011원 = <b style="font-size:18px;">+30,764원</b>
         </span>
       </div>
     </div>
@@ -356,15 +356,21 @@
         <div class="opp-sub">핸들러 인건비 + 교통비<br>건당 평균</div>
       </div>
       <div class="opp-card" style="border: 2px solid #fde68a;">
+        <div class="opp-label">주차비 (직접 비용)</div>
+        <div class="opp-value" style="color: var(--accent);">1,666원</div>
+        <div class="opp-sub">편도 반납 후 주차비<br>건당 평균 (연 6.4억)</div>
+      </div>
+      <div class="opp-card" style="border: 2px solid #c4b5fd;">
         <div class="opp-label">재판매 기회비용 (숨은 비용)</div>
-        <div class="opp-value" style="color: var(--accent);">7,854원</div>
-        <div class="opp-sub">차량 1대 일평균 GP 7,854원<br>유휴 평균 24.8시간(~1일) 기준</div>
+        <div class="opp-value" style="color: #7c3aed;">7,854원</div>
+        <div class="opp-sub">차량 1대 일평균 GP<br>유휴 평균 24.8시간(~1일) 기준</div>
       </div>
-      <div class="opp-card" style="border: 2px solid var(--red);">
-        <div class="opp-label">건당 실제 총비용</div>
-        <div class="opp-value" style="color: var(--red);">23,941원</div>
-        <div class="opp-sub">탁송비만 보면 16K지만<br><b>실제로는 24K가 사라짐</b></div>
-      </div>
+    </div>
+    <div style="text-align:center; margin-top:16px; padding:14px; background:#fef2f2; border-radius:10px; border:2px solid #fecaca;">
+      <span style="font-size:15px; font-weight:700; color:#dc2626;">
+        건당 실제 총비용: 16,087 + 1,666 + 7,854 = <b style="font-size:20px;">25,607원</b>
+        <span style="font-size:13px; font-weight:400; color:var(--gray-500);"> &nbsp;(탁송비만 보면 16K, 실제론 26K)</span>
+      </span>
     </div>
 
     <div class="card" style="margin-top:20px;">
@@ -390,10 +396,9 @@
       <div class="callout" style="background:var(--primary-light); border:2px solid var(--primary); margin-top:16px;">
         <h4 style="color:var(--primary);">24시간 매칭 윈도우가 합리적인 이유</h4>
         <p style="color:#1e3a5f; font-size:13px;">
-          <b>제시간에 돌아갔을 때 재판매 기회비용</b>: 차량 1대 일평균 GP 7,854원 (핵심매출 31,688원)<br>
-          <b>24시간 대기 비용</b>: 기회비용 7,854원 (원존 복귀 시 하루 벌 수 있었던 GP)<br>
-          <b>매칭 성공 시 회수</b>: B고객 매출 66,775원 + 탁송비 절감 6,087원 = <b>72,862원</b><br>
-          &rarr; 7,854원을 투자해서 72,862원을 회수하는 구조. <b>투자 대비 9.3배 리턴</b><br>
+          <b>24시간 대기 비용</b>: 주차비 1,666원 + 기회비용 7,854원 = <b>9,520원</b><br>
+          <b>매칭 성공 시 회수</b>: B고객 매출 66,775원 + 탁송비 절감 6,087원 + 주차비 절감 1,666원 = <b>74,528원</b><br>
+          &rarr; 9,520원을 투자해서 74,528원을 회수하는 구조. <b>투자 대비 7.8배 리턴</b><br>
           &rarr; 매칭 실패해도 기존 탁송 진행이면 되므로 <b>추가 손실은 24h 대기 비용뿐</b>
         </p>
       </div>
