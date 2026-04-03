@@ -330,7 +330,7 @@
   <!-- Header -->
   <div class="header">
     <div class="badge">충청사업팀</div>
-    <h1>편도 역방향 매칭으로 연 GP +3,264만원 확보 방안</h1>
+    <h1>편도 역방향 매칭으로 연 순GP +967만원 확보 방안</h1>
     <p class="subtitle">승인 요청 | 충청 지역 파일럿 → 수도권 확장 시 +1.1억</p>
   </div>
 
@@ -340,7 +340,7 @@
       <table style="font-size: 15px; border-collapse: collapse;">
         <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
           <td style="padding: 12px 16px; font-weight: 700; white-space: nowrap; color: var(--primary); width: 120px;">추진 목적</td>
-          <td style="padding: 12px 16px;">충청 편도 탁송비 연 4.1억 중 <b>1,946만원 절감</b> + 신규 역방향 수요 확보로 <b>추가 GP 1,318만원</b>, 총 <b>연 GP +3,264만원 증대</b></td>
+          <td style="padding: 12px 16px;">충청 편도 탁송비 연 4.1억 중 <b>1,946만원 절감</b> + 신규 역방향 수요 확보로 <b>추가 GP 1,318만원</b>, 총 <b>연 순GP +967만원 증대</b> (24h주차비·기회비용 차감 후)</td>
         </tr>
         <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
           <td style="padding: 12px 16px; font-weight: 700; white-space: nowrap; color: var(--primary);">실행 방안</td>
@@ -374,10 +374,17 @@
         <div class="sub">1,458건 &times; 건당 9,042원</div>
       </div>
       <div class="kpi-card green">
-        <div class="label">총 GP 개선 (절감+추가)</div>
-        <div class="value">3,264<span class="unit">만원/년</span></div>
-        <div class="sub">1,458건 &times; 건당 22,388원</div>
+        <div class="label">순 GP 개선 (비용 차감 후)</div>
+        <div class="value">967<span class="unit">만원/년</span></div>
+        <div class="sub">1,458건 &times; 건당 6,633원</div>
       </div>
+    </div>
+    <div class="callout" style="background: var(--green-light); border-color: var(--green); margin-top: -16px; margin-bottom: 16px;">
+      <h4 style="color: #065f46;">순 GP 개선 산출 근거</h4>
+      <p style="color: #064e3b;">
+        순 GP 개선 = 탁송비 절감(13,348원) + 핸들러주차 절감(2,295원) + 추가 GP(9,042원) - 24h 주차비(10,000원) - 기회비용 22h(8,052원)<br>
+        <b>건당 순 GP = 6,633원 &times; 1,458건 = 연 967만원</b>
+      </p>
     </div>
   </div>
 
@@ -693,7 +700,7 @@
         <div class="metric-row"><span>추가 핵심매출</span><span class="metric-value">4,360만</span></div>
         <div class="metric-row"><span>추가 GP</span><span class="metric-value">1,318만</span></div>
         <div class="metric-row" style="border-top:2px solid var(--primary); margin-top:4px; padding-top:8px;">
-          <span><b>총 GP 개선</b></span><span class="metric-value" style="color:var(--primary);">3,264만</span></div>
+          <span><b>순 GP 개선</b></span><span class="metric-value" style="color:var(--primary);">967만</span></div>
       </div>
       <div class="phase-arrow">&rarr;</div>
       <div class="phase-box p2">
@@ -1069,17 +1076,17 @@ const ctxEcon = document.getElementById('chartEconomics').getContext('2d');
 new Chart(ctxEcon, {
   type: 'bar',
   data: {
-    labels: ['탁송비 절감', '추가 핵심매출', '추가 GP', '총 GP개선'],
+    labels: ['탁송비 절감', '추가 핵심매출', '추가 GP', '순GP개선'],
     datasets: [
       {
         label: '100% 매칭',
-        data: [3893, 8721, 2636, 6529],
+        data: [3893, 8721, 2636, 1934],
         backgroundColor: '#1a56db',
         borderRadius: 4
       },
       {
         label: '50% 매칭 (보수적)',
-        data: [1946, 4360, 1318, 3264],
+        data: [1946, 4360, 1318, 967],
         backgroundColor: '#93c5fd',
         borderRadius: 4
       }

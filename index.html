@@ -226,7 +226,7 @@
       <li><a href="#solution">💡 해결 방안</a></li>
       <li><a href="#journey">📱 고객 여정</a></li>
       <li><a href="#comparison">🔄 AS-IS vs TO-BE</a></li>
-      <li><a href="#idle-cost">⏳ 방치 비용</a></li>
+      <li><a href="#idle-cost">⏳ 비용 구조 상세</a></li>
       <li><a href="#kpi">🎯 추진 목표</a></li>
       <li><a href="#phases">📈 단계별 확장</a></li>
       <li><a href="#detail">🔍 상세 분석</a></li>
@@ -422,8 +422,8 @@
           </div>
           <div class="flow-step" style="background: #fef2f2;">
             <div class="flow-num" style="background: var(--red);">2</div>
-            <div>차량 유휴 대기 <b>평균 24.8시간</b></div>
-            <span class="flow-cost cost">-9,520원</span>
+            <div>핸들러 주차비</div>
+            <span class="flow-cost cost">-2,295원</span>
           </div>
           <div class="flow-step" style="background: #fef2f2;">
             <div class="flow-num" style="background: var(--red);">3</div>
@@ -432,10 +432,10 @@
           </div>
           <div class="flow-step" style="background: var(--gray-100);">
             <div class="flow-num">4</div>
-            <div>차량 재가동 (X존 복귀)</div>
+            <div>차량 재가동 <b>~2시간</b> 만에 복귀</div>
           </div>
           <div class="journey-total" style="background: #fef2f2; color: #991b1b;">
-            총 비용: -25,607원 / 추가 매출: 0원
+            총 비용: -18,382원 / 복귀: ~2시간
           </div>
         </div>
         <div class="journey-col">
@@ -447,13 +447,13 @@
           </div>
           <div class="flow-step" style="background: var(--primary-light);">
             <div class="flow-num">2</div>
-            <div>Push 알림 &rarr; <b>B고객</b> 매칭</div>
-            <span class="flow-cost neutral">대기: ~수시간</span>
+            <div>24시간 매칭 대기 + Push 알림</div>
+            <span class="flow-cost cost">-10,000원 주차 / -8,052원 기회비용</span>
           </div>
           <div class="flow-step" style="background: var(--green-light);">
             <div class="flow-num" style="background: var(--green);">3</div>
             <div><b>B고객</b> 청주 &rarr; 대전 내 원하는 곳 반납</div>
-            <span class="flow-cost revenue">+대여+주행 (43,232원)</span>
+            <span class="flow-cost revenue">+대여+주행 43,232원</span>
           </div>
           <div class="flow-step" style="background: var(--primary-light);">
             <div class="flow-num">4</div>
@@ -461,76 +461,109 @@
             <span class="flow-cost cost">-10,000원</span>
           </div>
           <div class="journey-total" style="background: var(--green-light); color: #065f46;">
-            총 비용: -10,000원 / 추가 매출: +43,232원
+            총 비용: -28,052원 / 추가 매출: +43,232원
           </div>
         </div>
       </div>
       <div style="text-align:center; margin-top:16px; padding:16px; background: var(--primary-light); border-radius:10px;">
         <span style="font-size:15px; font-weight:700; color: var(--primary);">
-          건당 총 GP 개선: <b style="font-size:18px;">+28,124원</b>
-          <span style="font-size:12px; font-weight:400; color:var(--gray-500);">(연간 10.9억 ÷ 38,766건, 탁송비 절감 + 추가 GP 포함)</span>
+          건당 순 GP 개선: <b style="font-size:18px;">+12,367원</b>
+          <span style="font-size:12px; font-weight:400; color:var(--gray-500);">(연간 4.79억 &divide; 38,766건)</span>
         </span>
       </div>
     </div>
   </div>
 
-  <!-- 24시간 방치 기회비용 -->
+  <!-- 비용 구조 상세 -->
   <div class="section" id="idle-cost">
-    <h2 class="section-title">방치 비용: 24시간 윈도우의 진짜 비용</h2>
-    <p style="font-size:14px; color:var(--gray-500); margin-bottom:20px;">편도 반납 후 탁송까지 차량이 유휴 상태로 방치되는 동안 발생하는 숨은 비용</p>
+    <h2 class="section-title">비용 구조: AS-IS vs TO-BE 상세</h2>
+    <p style="font-size:14px; color:var(--gray-500); margin-bottom:20px;">AS-IS 탁송 비용과 TO-BE 매칭 대기 비용의 상세 비교</p>
+
+    <!-- Part A: AS-IS 건당 비용 -->
+    <h4 style="font-size:15px; font-weight:700; margin-bottom:14px; color:#991b1b;">AS-IS 건당 비용</h4>
     <div class="opp-grid">
       <div class="opp-card" style="border: 2px solid #fecaca;">
-        <div class="opp-label">탁송비 (직접 비용)</div>
+        <div class="opp-label">탁송비</div>
         <div class="opp-value" style="color: var(--red);">16,087원</div>
-        <div class="opp-sub">핸들러 인건비 + 교통비<br>건당 평균</div>
+        <div class="opp-sub">핸들러 인건비+교통비<br>건당 평균</div>
       </div>
       <div class="opp-card" style="border: 2px solid #fde68a;">
-        <div class="opp-label">주차비 (직접 비용)</div>
-        <div class="opp-value" style="color: var(--accent);">1,666원</div>
-        <div class="opp-sub">편도 반납 후 주차비<br>건당 평균 (연 6.4억)</div>
+        <div class="opp-label">핸들러 주차비</div>
+        <div class="opp-value" style="color: var(--accent);">2,295원</div>
+        <div class="opp-sub">반납지 시간주차 환급<br>크로스 구간</div>
       </div>
-      <div class="opp-card" style="border: 2px solid #c4b5fd;">
-        <div class="opp-label">재판매 기회비용 (숨은 비용)</div>
-        <div class="opp-value" style="color: #7c3aed;">7,854원</div>
-        <div class="opp-sub">차량 1대 일평균 GP<br>유휴 평균 24.8시간(~1일) 기준</div>
+      <div class="opp-card" style="border: 2px solid var(--gray-200);">
+        <div class="opp-label">소속존 복귀</div>
+        <div class="opp-value" style="color: var(--gray-700);">~2시간</div>
+        <div class="opp-sub">중위 2.0시간<br>핸들러 테이블 실측</div>
       </div>
     </div>
     <div style="text-align:center; margin-top:16px; padding:14px; background:#fef2f2; border-radius:10px; border:2px solid #fecaca;">
       <span style="font-size:15px; font-weight:700; color:#dc2626;">
-        건당 실제 총비용: 16,087 + 1,666 + 7,854 = <b style="font-size:20px;">25,607원</b>
-        <span style="font-size:13px; font-weight:400; color:var(--gray-500);"> &nbsp;(탁송비만 보면 16K, 실제론 26K)</span>
+        AS-IS 건당 총비용: <b style="font-size:20px;">18,382원</b>
+        <span style="font-size:13px; font-weight:400; color:var(--gray-500);"> &nbsp;(탁송비 16,087 + 핸들러주차 2,295)</span>
       </span>
     </div>
 
+    <!-- Part B: TO-BE 추가 비용 -->
+    <h4 style="font-size:15px; font-weight:700; margin-top:28px; margin-bottom:14px; color:#065f46;">TO-BE 추가 비용 (24시간 매칭 대기)</h4>
+    <div class="opp-grid">
+      <div class="opp-card" style="border: 2px solid #fde68a;">
+        <div class="opp-label">24h 주차비</div>
+        <div class="opp-value" style="color: var(--accent);">10,000원</div>
+        <div class="opp-sub">반납지 시간주차<br>일주차 상한 감안 추정</div>
+      </div>
+      <div class="opp-card" style="border: 2px solid #c4b5fd;">
+        <div class="opp-label">기회비용 (22h)</div>
+        <div class="opp-value" style="color: #7c3aed;">8,052원</div>
+        <div class="opp-sub">AS-IS 2h 복귀 대비 22h 추가 유휴<br>366원/h</div>
+      </div>
+      <div class="opp-card" style="border: 2px solid #fecaca;">
+        <div class="opp-label">재배치비</div>
+        <div class="opp-value" style="color: var(--red);">10,000원</div>
+        <div class="opp-sub">B고객 반납지&rarr;차량 소속존<br>지역 내 중위</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:16px; padding:14px; background:var(--accent-light); border-radius:10px; border:2px solid var(--accent);">
+      <span style="font-size:15px; font-weight:700; color:#92400e;">
+        TO-BE 건당 추가비용: <b style="font-size:20px;">28,052원</b>
+        <span style="font-size:13px; font-weight:400; color:var(--gray-500);"> &nbsp;(주차 10,000 + 기회비용 8,052 + 재배치 10,000)</span>
+      </span>
+    </div>
+
+    <!-- 소속존 복귀 시간 -->
     <div class="card" style="margin-top:20px;">
-      <h4 style="font-size:15px; font-weight:700; margin-bottom:14px;">편도 반납 후 유휴시간 분포</h4>
+      <h4 style="font-size:15px; font-weight:700; margin-bottom:14px;">소속존 복귀 시간 (핸들러 테이블 실측)</h4>
       <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; text-align:center;">
         <div style="padding:14px; background:var(--green-light); border-radius:8px;">
-          <div style="font-size:12px; color:var(--gray-500);">중위값</div>
-          <div style="font-size:22px; font-weight:800; color:var(--green);">17시간</div>
+          <div style="font-size:12px; color:var(--gray-500);">중위</div>
+          <div style="font-size:22px; font-weight:800; color:var(--green);">2.0시간</div>
+        </div>
+        <div style="padding:14px; background:var(--primary-light); border-radius:8px;">
+          <div style="font-size:12px; color:var(--gray-500);">평균</div>
+          <div style="font-size:22px; font-weight:800; color:var(--primary);">2.2시간</div>
         </div>
         <div style="padding:14px; background:var(--accent-light); border-radius:8px;">
-          <div style="font-size:12px; color:var(--gray-500);">평균</div>
-          <div style="font-size:22px; font-weight:800; color:var(--accent);">24.8시간</div>
+          <div style="font-size:12px; color:var(--gray-500);">P75</div>
+          <div style="font-size:22px; font-weight:800; color:var(--accent);">2.6시간</div>
         </div>
-        <div style="padding:14px; background:#fef2f2; border-radius:8px;">
-          <div style="font-size:12px; color:var(--gray-500);">24시간 이상</div>
-          <div style="font-size:22px; font-weight:800; color:var(--red);">31.3%</div>
-        </div>
-        <div style="padding:14px; background:#fef2f2; border-radius:8px;">
-          <div style="font-size:12px; color:var(--gray-500);">48시간 이상</div>
-          <div style="font-size:22px; font-weight:800; color:var(--red);">10.9%</div>
+        <div style="padding:14px; background:var(--gray-100); border-radius:8px;">
+          <div style="font-size:12px; color:var(--gray-500);">매칭건수</div>
+          <div style="font-size:22px; font-weight:800; color:var(--gray-700);">75,050건</div>
         </div>
       </div>
-      <div class="callout" style="background:var(--primary-light); border:2px solid var(--primary); margin-top:16px;">
-        <h4 style="color:var(--primary);">24시간 매칭 윈도우가 합리적인 이유</h4>
-        <p style="color:#1e3a5f; font-size:13px;">
-          <b>24시간 대기 비용</b>: 주차비 1,666원 + 기회비용 7,854원 = <b>9,520원</b><br>
-          <b>매칭 성공 시 건당 GP 개선</b>: <b>28,124원</b> <span style="font-size:12px; color:var(--gray-500);">(탁송비 절감 15,849 + 추가 GP 12,275)</span><br>
-          &rarr; 9,520원을 투자해서 28,124원의 GP를 개선하는 구조. <b>투자 대비 3.0배 리턴</b><br>
-          &rarr; 매칭 실패해도 기존 탁송 진행이면 되므로 <b>추가 손실은 24h 대기 비용뿐</b>
-        </p>
-      </div>
+    </div>
+
+    <!-- Part C: 결론 -->
+    <div class="callout" style="background:var(--green-light); border:2px solid var(--green); margin-top:20px;">
+      <h4 style="color:#065f46;">결론: 제로편도는 여전히 이득</h4>
+      <p style="color:#064e3b; font-size:13px;">
+        <b>AS-IS 비용 절감</b>: +18,382원 (탁송비+핸들러주차 불필요)<br>
+        <b>B고객 추가 GP</b>: +12,275원<br>
+        <b>TO-BE 추가 비용</b>: -28,052원 (주차+기회비용+재배치)<br>
+        <b style="font-size:15px;">순 GP 개선: +12,367원/건</b> (still positive!)<br>
+        <span style="font-size:12px;">매칭 실패 시: 기존 탁송 진행, 추가 손실 Zero</span>
+      </p>
     </div>
   </div>
 
@@ -539,24 +572,24 @@
     <h2 class="section-title">추진 목표 (전국, 50% 보수적 매칭률 기준)</h2>
     <div class="kpi-grid">
       <div class="kpi-card green">
-        <div class="label">탁송비 절감</div>
-        <div class="value">6.1<span class="unit">억원/년</span></div>
-        <div class="sub">38,766건 &times; 건당 15,849원</div>
+        <div class="label">비용 절감</div>
+        <div class="value">18,144<span class="unit">원/건</span></div>
+        <div class="sub">탁송비 15,849 + 핸들러주차 2,295</div>
       </div>
       <div class="kpi-card blue">
-        <div class="label">추가 핵심매출 (대여+주행)</div>
-        <div class="value">16.8<span class="unit">억원/년</span></div>
-        <div class="sub">38,766건 &times; 건당 43,232원</div>
+        <div class="label">추가 GP</div>
+        <div class="value">12,275<span class="unit">원/건</span></div>
+        <div class="sub">B고객 대여+주행</div>
       </div>
       <div class="kpi-card amber">
-        <div class="label">추가 GP</div>
-        <div class="value">4.8<span class="unit">억원/년</span></div>
-        <div class="sub">38,766건 &times; 건당 12,275원</div>
+        <div class="label">추가 비용</div>
+        <div class="value">-18,052<span class="unit">원/건</span></div>
+        <div class="sub">주차 10,000 + 기회비용 8,052</div>
       </div>
       <div class="kpi-card green">
-        <div class="label">총 GP 개선 (절감+추가)</div>
-        <div class="value">10.9<span class="unit">억원/년</span></div>
-        <div class="sub">탁송비 절감 6.1억 + 추가 GP 4.8억</div>
+        <div class="label">순 GP 개선</div>
+        <div class="value">4.79<span class="unit">억원/년</span></div>
+        <div class="sub">12,367원 &times; 38,766건</div>
       </div>
     </div>
   </div>
@@ -568,9 +601,9 @@
       <div class="phase-card" style="background: var(--primary-light); border: 2px solid var(--primary);">
         <div class="phase-num" style="background: var(--primary);">Phase 1</div>
         <div class="phase-title">충청 파일럿</div>
-        <div class="phase-value" style="color: var(--primary);">+3,264만</div>
+        <div class="phase-value" style="color: var(--primary);">+967만</div>
         <div class="phase-sub">1,458쌍 대상 / 1,458건 매칭(50%)</div>
-        <div class="phase-sub">충청사업팀 관할 내 독자 실행</div>
+        <div class="phase-sub">건당 순 GP 12,367원 &times; 충청 매칭건</div>
       </div>
       <div class="phase-card" style="background: var(--accent-light); border: 2px solid var(--accent);">
         <div class="phase-num" style="background: var(--accent);">Phase 2</div>
@@ -582,9 +615,9 @@
       <div class="phase-card" style="background: var(--green-light); border: 2px solid var(--green);">
         <div class="phase-num" style="background: var(--green);">Phase 3</div>
         <div class="phase-title">전국 확장</div>
-        <div class="phase-value" style="color: var(--green);">+10.9억</div>
+        <div class="phase-value" style="color: var(--green);">+4.79억</div>
         <div class="phase-sub">77,530건 대상 / 38,766건 매칭(50%)</div>
-        <div class="phase-sub">탁송비 6.1억 절감 + GP 4.8억</div>
+        <div class="phase-sub">건당 순 GP 12,367원 (비용 절감+추가GP-추가비용)</div>
       </div>
     </div>
 
@@ -671,13 +704,11 @@ WHERE a.start_region &lt; a.end_region</pre>
       </details>
 
       <details style="margin-bottom:12px; border:1px solid var(--gray-200); border-radius:8px; padding:12px;">
-        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">AS-IS 건당 비용 &rarr; 탁송 16,087 + 주차 1,668 + 기회비용 7,854 = 25,607원</summary>
+        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">AS-IS 건당 비용 &rarr; 탁송 16,087 + 핸들러주차 2,295 = 18,382원</summary>
         <pre style="margin-top:10px; padding:12px; background:var(--gray-50); border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.5;">-- 탁송비: transport_cost 4개 컬럼 합산 평균 = 16,087원
--- 주차비: parking_cost_d2d + parking_cost_z2d 평균 = 1,668원
---         (parking_cost_oneway는 전부 0)
--- 기회비용: 차량 일평균 GP 7,854원 &times; 유휴 24.8h(&asymp;1일)
--- 유휴시간: 편도 return_at ~ 같은 car_id 다음 예약 start_at
---           평균 24.8h, 중위 17h, 24h이상 31.3%</pre>
+-- 핸들러 주차비: socarhandler_parking_fee 테이블, 크로스 구간 평균 = 2,295원
+-- 소속존 복귀 시간: 중위 2.0시간, 평균 2.2시간, P75 2.6시간
+--   (핸들러 테이블 실측, 75,050건 기준)</pre>
       </details>
 
       <details style="margin-bottom:12px; border:1px solid var(--gray-200); border-radius:8px; padding:12px;">
@@ -694,11 +725,12 @@ GROUP BY start_region</pre>
       </details>
 
       <details style="border:1px solid var(--gray-200); border-radius:8px; padding:12px;">
-        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">24시간 매칭 윈도우 ROI &rarr; 3.0배</summary>
-        <pre style="margin-top:10px; padding:12px; background:var(--gray-50); border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.5;">-- 대기 비용: 주차비 1,668 + 기회비용 7,854 = 9,520원
---   (AS-IS에서도 평균 24.8시간 유휴 → 추가 비용 아님)
--- 매칭 시 건당 GP 개선: 28,124원 (10.9억 &divide; 38,766건)
--- ROI: 28,124 &divide; 9,520 = 3.0배
+        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">순 GP 개선 &rarr; 건당 12,367원 (연 4.79억)</summary>
+        <pre style="margin-top:10px; padding:12px; background:var(--gray-50); border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.5;">-- 비용 절감: 탁송비 15,849 + 핸들러주차 2,295 = 18,144원
+-- 추가 GP: B고객 대여+주행 = 12,275원
+-- TO-BE 추가 비용: 24h주차 10,000 + 기회비용(22h) 8,052 = 18,052원
+-- 순 GP 개선: 18,144 + 12,275 - 18,052 = 12,367원/건
+-- 연간: 12,367 &times; 38,766건 = 4.79억원
 -- 매칭 실패 시: 기존 탁송 프로세스, 추가 손실 = 0</pre>
       </details>
     </div>
