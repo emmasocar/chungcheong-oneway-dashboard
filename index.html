@@ -584,6 +584,95 @@
     </div>
   </div>
 
+  <!-- 데이터 근거 -->
+  <div class="section">
+    <h2 class="section-title">데이터 근거</h2>
+    <p style="font-size:13px; color:var(--gray-500); margin-bottom:16px;">본 대시보드의 모든 수치는 2025년 실데이터 기반입니다. 각 수치의 산출 쿼리를 아래에서 확인할 수 있습니다.</p>
+
+    <div class="card" style="font-size:13px;">
+      <div style="margin-bottom:12px;">
+        <b>데이터 소스</b>: socar-data BigQuery<br>
+        <b>기준 기간</b>: 2025-01-01 ~ 2025-12-31<br>
+        <b>필터</b>: state=3, member_imaginary IN (0,9), way IN ('z2d_oneway','d2d_oneway'), 제주 제외<br>
+        <b>테이블</b>: reservation_v2 + reservation_dtod_info + carzone_info + profit_socar_reservation
+      </div>
+
+      <details style="margin-bottom:12px; border:1px solid var(--gray-200); border-radius:8px; padding:12px;">
+        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">전국 편도 총건수 + 탁송비 &rarr; 377,506건, 60.6억</summary>
+        <pre style="margin-top:10px; padding:12px; background:var(--gray-50); border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.5;">SELECT
+  COUNT(*) AS cnt,
+  ROUND(SUM(
+    COALESCE(transport_cost_socar,0) + COALESCE(transport_cost_d2d,0)
+    + COALESCE(transport_cost_z2d,0) + COALESCE(transport_cost_mobility,0)
+  )) AS total_transport
+FROM reservation_v2 r
+LEFT JOIN carzone_info cz ON r.zone_id = cz.id
+WHERE date &gt;= '2025-01-01' AND date &lt; '2026-01-01'
+  AND state = 3 AND member_imaginary IN (0, 9)
+  AND way IN ('z2d_oneway','d2d_oneway')
+  AND cz.region1 != '제주특별자치도'</pre>
+      </details>
+
+      <details style="margin-bottom:12px; border:1px solid var(--gray-200); border-radius:8px; padding:12px;">
+        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">양방향 매칭 KPI (전국 38,765쌍 / 충청 1,458쌍)</summary>
+        <pre style="margin-top:10px; padding:12px; background:var(--gray-50); border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.5;">-- 양방향 매칭: 같은 구간 A&rarr;B, B&rarr;A 중 적은 쪽(MIN) = 매칭 가능 쌍
+-- 개별 건수: 쌍 &times; 2, 50% 매칭 시 = 쌍 수와 동일
+-- 탁송비 절감: med_transport_A + med_transport_B - 20,000 (재배치 비용)
+-- 추가 매출/GP: (avg_A + avg_B) / 2 (양방향 평균)
+
+WITH agg AS (
+  SELECT start_region, end_region,
+    COUNT(*) AS cnt,
+    APPROX_QUANTILES(transport_cost, 100)[OFFSET(50)] AS med_transport,
+    AVG(core_rev) AS avg_rev, AVG(gp) AS avg_gp
+  FROM cross_region_oneway
+  GROUP BY 1, 2
+)
+SELECT
+  LEAST(a.cnt, b.cnt) AS match_pairs,
+  a.med_transport + b.med_transport - 20000 AS pair_transport_saving,
+  (a.avg_rev + b.avg_rev) / 2.0 AS pair_avg_rev,
+  (a.avg_gp + b.avg_gp) / 2.0 AS pair_avg_gp
+FROM agg a
+JOIN agg b ON a.start_region = b.end_region
+  AND a.end_region = b.start_region
+WHERE a.start_region &lt; a.end_region</pre>
+      </details>
+
+      <details style="margin-bottom:12px; border:1px solid var(--gray-200); border-radius:8px; padding:12px;">
+        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">AS-IS 건당 비용 &rarr; 탁송 16,087 + 주차 1,668 + 기회비용 7,854 = 25,607원</summary>
+        <pre style="margin-top:10px; padding:12px; background:var(--gray-50); border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.5;">-- 탁송비: transport_cost 4개 컬럼 합산 평균 = 16,087원
+-- 주차비: parking_cost_d2d + parking_cost_z2d 평균 = 1,668원
+--         (parking_cost_oneway는 전부 0)
+-- 기회비용: 차량 일평균 GP 7,854원 &times; 유휴 24.8h(&asymp;1일)
+-- 유휴시간: 편도 return_at ~ 같은 car_id 다음 예약 start_at
+--           평균 24.8h, 중위 17h, 24h이상 31.3%</pre>
+      </details>
+
+      <details style="margin-bottom:12px; border:1px solid var(--gray-200); border-radius:8px; padding:12px;">
+        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">지역 내 재배치 비용 &rarr; 중위 ~10,000원</summary>
+        <pre style="margin-top:10px; padding:12px; background:var(--gray-50); border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.5;">-- 같은 시도 내 편도 탁송비 중위값
+-- 대전: 9,825원 / 세종: 9,839원 / 충남: 10,412원 / 충북: 11,197원
+-- 서울: 10,977원 / 경기: 13,015원 / 부산: 10,708원
+
+SELECT start_region,
+  APPROX_QUANTILES(transport_cost, 100)[OFFSET(50)] AS med_transport
+FROM oneway
+WHERE start_region = end_region  -- 같은 시도 내 이동
+GROUP BY start_region</pre>
+      </details>
+
+      <details style="border:1px solid var(--gray-200); border-radius:8px; padding:12px;">
+        <summary style="cursor:pointer; font-weight:700; color:var(--primary);">24시간 매칭 윈도우 ROI &rarr; 3.0배</summary>
+        <pre style="margin-top:10px; padding:12px; background:var(--gray-50); border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.5;">-- 대기 비용: 주차비 1,668 + 기회비용 7,854 = 9,520원
+--   (AS-IS에서도 평균 24.8시간 유휴 → 추가 비용 아님)
+-- 매칭 시 건당 GP 개선: 28,124원 (10.9억 &divide; 38,766건)
+-- ROI: 28,124 &divide; 9,520 = 3.0배
+-- 매칭 실패 시: 기존 탁송 프로세스, 추가 손실 = 0</pre>
+      </details>
+    </div>
+  </div>
+
   <div class="footer">
     제로편도 서비스 분석 | 데이터 기준: 2025년 (reservation_v2 + profit_socar_reservation)
   </div>
