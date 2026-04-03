@@ -21,6 +21,7 @@
     --gray-700: #374151;
     --gray-900: #111827;
   }
+  html { scroll-behavior: smooth; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -70,7 +71,7 @@
   .header h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
   .header .subtitle { color: var(--gray-500); font-size: 16px; }
 
-  .section { margin-bottom: 48px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 70px; }
   .section-title {
     font-size: 20px; font-weight: 700; margin-bottom: 20px;
     padding-left: 14px; border-left: 4px solid var(--primary);
@@ -179,6 +180,21 @@
 
   .footer { text-align: center; padding: 24px; color: var(--gray-500); font-size: 12px; }
 
+  .toc {
+    background: white; border-radius: 12px; padding: 24px 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 48px;
+    border: 2px solid var(--gray-200);
+  }
+  .toc h3 { font-size: 15px; font-weight: 700; color: var(--gray-700); margin-bottom: 14px; }
+  .toc-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+  .toc-list li a {
+    display: inline-block; padding: 8px 16px; border-radius: 8px; font-size: 13px;
+    font-weight: 600; text-decoration: none; color: var(--primary);
+    background: var(--primary-light); border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .toc-list li a:hover { border-color: var(--primary); background: white; }
+
   @media (max-width: 900px) {
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
     .grid-2, .phase-row, .nav-cards { grid-template-columns: 1fr; }
@@ -203,8 +219,23 @@
     <p class="subtitle">편도 반납 차량의 역방향 매칭으로 탁송비 절감 + 추가 매출 확보</p>
   </div>
 
+  <div class="toc">
+    <h3>목차</h3>
+    <ul class="toc-list">
+      <li><a href="#why">왜 해야 하는가</a></li>
+      <li><a href="#solution">해결 방안</a></li>
+      <li><a href="#journey">고객 여정</a></li>
+      <li><a href="#comparison">AS-IS vs TO-BE</a></li>
+      <li><a href="#idle-cost">방치 비용</a></li>
+      <li><a href="#kpi">추진 목표</a></li>
+      <li><a href="#phases">단계별 확장</a></li>
+      <li><a href="#detail">상세 분석</a></li>
+      <li><a href="#data-evidence">데이터 근거</a></li>
+    </ul>
+  </div>
+
   <!-- 문제점 -->
-  <div class="section">
+  <div class="section" id="why">
     <h2 class="section-title">왜 해야 하는가</h2>
     <div class="grid-2">
       <div class="problem-card red-card" style="background: #fef2f2; border: 2px solid #fecaca;">
@@ -226,7 +257,7 @@
   </div>
 
   <!-- 해결 방안 -->
-  <div class="section">
+  <div class="section" id="solution">
     <h2 class="section-title">해결 방안: 롤링 재고 + Push 알림</h2>
     <div class="card">
       <p style="font-size:14px; color:var(--gray-700); margin-bottom:16px; line-height:1.8;">
@@ -280,7 +311,7 @@
   </div>
 
   <!-- 고객 여정 플로우 -->
-  <div class="section">
+  <div class="section" id="journey">
     <h2 class="section-title">고객 여정: B고객이 매칭 차량을 잡는 과정</h2>
     <div class="card">
       <p style="font-size:14px; color:var(--gray-700); margin-bottom:16px; line-height:1.8;">
@@ -378,7 +409,7 @@
   </div>
 
   <!-- AS-IS vs TO-BE 여정 플로우 -->
-  <div class="section">
+  <div class="section" id="comparison">
     <h2 class="section-title">운영 여정 비교: AS-IS vs TO-BE</h2>
     <div class="card">
       <div class="journey-grid">
@@ -444,7 +475,7 @@
   </div>
 
   <!-- 24시간 방치 기회비용 -->
-  <div class="section">
+  <div class="section" id="idle-cost">
     <h2 class="section-title">방치 비용: 24시간 윈도우의 진짜 비용</h2>
     <p style="font-size:14px; color:var(--gray-500); margin-bottom:20px;">편도 반납 후 탁송까지 차량이 유휴 상태로 방치되는 동안 발생하는 숨은 비용</p>
     <div class="opp-grid">
@@ -504,7 +535,7 @@
   </div>
 
   <!-- 추진 목표 -->
-  <div class="section">
+  <div class="section" id="kpi">
     <h2 class="section-title">추진 목표 (전국, 50% 보수적 매칭률 기준)</h2>
     <div class="kpi-grid">
       <div class="kpi-card green">
@@ -531,7 +562,7 @@
   </div>
 
   <!-- 단계별 확장 -->
-  <div class="section">
+  <div class="section" id="phases">
     <h2 class="section-title">단계별 확장 계획</h2>
     <div class="phase-row">
       <div class="phase-card" style="background: var(--primary-light); border: 2px solid var(--primary);">
@@ -568,7 +599,7 @@
   </div>
 
   <!-- 상세 분석 네비게이션 -->
-  <div class="section">
+  <div class="section" id="detail">
     <h2 class="section-title">상세 분석</h2>
     <div class="nav-cards">
       <a href="chungcheong-oneway-dashboard.html" class="nav-card">
@@ -585,7 +616,7 @@
   </div>
 
   <!-- 데이터 근거 -->
-  <div class="section">
+  <div class="section" id="data-evidence">
     <h2 class="section-title">데이터 근거</h2>
     <p style="font-size:13px; color:var(--gray-500); margin-bottom:16px;">본 대시보드의 모든 수치는 2025년 실데이터 기반입니다. 각 수치의 산출 쿼리를 아래에서 확인할 수 있습니다.</p>
 
